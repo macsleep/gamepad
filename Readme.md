@@ -26,7 +26,7 @@ This is software for a USB dongle to use a FrSky Taranis wirelessly with PC simu
 * Execute "make" to build the HEX file
 * Execute "make program" to download the HEX file to the attached Teensy 2.0
 
-If you don't want to build the software yourself just download the Gamepad.hex file and download it to the Teensy 2.0 using teensy_loader_cli (see Makefile for parameters for teensy_loader_cli).
+If you don't want to build the software yourself just download the Gamepad.hex file and download it to the Teensy 2.0 using teensy_loader_cli (see Makefile for parameters).
 
 ## Usage
 Create a new model for the SBus Gamepad on your transmitter. Make sure that you enable ailerons, elevator, throttle and rudder for the receiver at minimum. Bind the receiver like you normally would. Use software like <a href=http://html5gamepad.com>HTML5 Gamepad Tester</a> to test the sbus gamepad. Once you have confirmed operation start your favorite simulator and see if it recognizes the sbus gamepad.
