@@ -16,7 +16,7 @@ This is software for a USB dongle to use a FrSky Taranis wirelessly with PC simu
 	* available here: <a href=http://www.microchip.com>Microchip</a>
 * HalfKey Loader teensy_loader_cli
 	* available here: <a href=https://www.pjrc.com/>PJRC</a>
-* Dean Camera's **L**ightweight **U**SB **F**ramework for **A**VRs
+* Dean Camera's excellent **L**ightweight **U**SB **F**ramework for **A**VRs
 	* available here: <a href=http://www.fourwalledcubicle.com/>Four Walled Cubicle</a>
 
 ## Build
