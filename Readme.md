@@ -1,7 +1,7 @@
 # SBus Gamepad
 
 ## Description
-This is software for a USB dongle to use a FrSky Taranis wirelessly with PC simulators like FPVFreerider or RC-Airsim. On the USB side there is a Teensy 2.0 with an eight bit atmega32u4 CPU. And the receiver is a FrSky XM with sbus output. The Teensy reads the sbus signal of the receiver via UART and then presents that data as a USB HID gamepad to the computer. To read the sbus signal the Teensy needs an inverter in form of a simple transistor. Please see <a href="https://github.com/macsleep/gamepad/tree/master/docs">docs</a> directory for more details.
+This is software for a USB dongle to use a FrSky Taranis wirelessly with PC simulators like FPVFreerider or RC-Airsim. On the USB side there is a Teensy 2.0 with an eight bit atmega32u4 CPU. And the receiver is a FrSky XM with sbus output. The Teensy reads the sbus signal of the receiver via UART and then presents that data as a USB HID gamepad to the computer. To read the sbus signal the Teensy needs an inverter in form of a simple transistor. Please see the <a href="https://github.com/macsleep/gamepad/tree/master/docs">docs</a> directory for more details.
 
 ## Hardware
 * Teensy 2.0
