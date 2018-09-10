@@ -20,7 +20,7 @@ OPTIMIZATION = s
 TARGET       = Gamepad
 SRC          = $(TARGET).c Descriptors.c SBus.c $(LUFA_SRC_USB) $(LUFA_SRC_USBCLASS)
 LUFA_PATH    = ../lufa/LUFA
-CC_FLAGS     = -DUSE_LUFA_CONFIG_HEADER -IConfig/
+CC_FLAGS     = -DUSE_LUFA_CONFIG_HEADER -Iconf/
 LD_FLAGS     =
 
 # Default target
