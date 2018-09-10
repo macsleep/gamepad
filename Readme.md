@@ -1,11 +1,7 @@
 # SBus Gamepad
 
----
-
 ## Description
 This is software for a USB dongle to use a FrSky Taranis wirelessly with PC simulators like FPVFreerider or RC-Airsim. On the USB side I chose a Teensy 2.0 with an eight bit atmega32u4 CPU. And the receiver is a FrSky XM with sbus output. The Teensy reads the sbus signal of the receiver via UART and then presents that data as a USB HID gamepad to the computer. To read the sbus signal the Teensy needs an inverter in form of a simple transistor.  
-
----
 
 ## Hardware
 * Teensy 2.0
@@ -15,8 +11,6 @@ This is software for a USB dongle to use a FrSky Taranis wirelessly with PC simu
 * A transistor to invert the sbus signal for the Teensy
 	* please see the schematic in "docs" folder for details
 
----
-
 ## Software
 * AVR 8-bit gcc tool chain
 	* available here: <a href=http://www.microchip.com>Microchip</a>
@@ -24,8 +18,6 @@ This is software for a USB dongle to use a FrSky Taranis wirelessly with PC simu
 	* available here: <a href=https://www.pjrc.com/>PJRC</a>
 * Dean Camera's **L**ightweight **U**SB **F**ramework for **A**VRs
 	* available here: <a href=http://www.fourwalledcubicle.com/>Four Walled Cubicle</a>
-
----
 
 ## Build
 * Clone or download the firmware
@@ -36,12 +28,8 @@ This is software for a USB dongle to use a FrSky Taranis wirelessly with PC simu
 
 If you don't want to build the software yourself just download the Gamepad.hex file and download it to the Teensy 2.0 using teensy_loader_cli (see Makefile for parameters for teensy_loader_cli).
 
----
-
 ## Usage
 Create a new model for the SBus Gamepad on your transmitter. Make sure that you enable ailerons, elevator, throttle and rudder for the receiver at minimum. Bind the receiver like you normally would. Use software like <a href=http://html5gamepad.com>HTML5 Gamepad Tester</a> to test the sbus gamepad. Once you have confirmed operation start your favorite simulator and see if it recognizes the sbus gamepad.
-
----
 
 ## Testing
 
