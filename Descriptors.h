@@ -76,10 +76,10 @@ enum StringDescriptors_t {
 
 /* Macros: */
 /** Endpoint address of the Gamepad HID reporting IN endpoint. */
-#define GAMEPAD_EPADDR              (ENDPOINT_DIR_IN | 1)
+#define GAMEPAD_EPADDR (ENDPOINT_DIR_IN | 1)
 
 /** Size in bytes of the Gamepad HID reporting IN endpoint. */
-#define GAMEPAD_EPSIZE              11
+#define GAMEPAD_EPSIZE 11
 
 /* Function Prototypes: */
 uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue,
