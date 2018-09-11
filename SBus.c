@@ -85,9 +85,11 @@ uint8_t SBus_Parse(int8_t *channels, uint8_t size) {
  */
 int8_t SBus_Normalize(float x) {
 	float y;
+
         y = M * x + B;
 	if(y < Y1) y = Y1;
 	if(y > Y2) y = Y2;
+
 	return y;
 }
 
