@@ -47,6 +47,10 @@
 // uart baud rate
 #define SBUS_BAUD F_CPU/16/100000-1
 
+// sbus status flags
+#define SBUS_FRAME_LOST 2
+#define SBUS_FAILSAVE_ACTIVATED 3
+
 /* Function Prototypes */
 void SBus_Init(void);
 uint8_t SBus_Parse(int8_t *channels, uint8_t size);
