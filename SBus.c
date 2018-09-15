@@ -87,13 +87,13 @@ uint8_t SBus_Parse(int8_t *channels, uint8_t size) {
  *  \return        usb value (-127 to 127)
  */
 int8_t SBus_Normalize(float x) {
-	float y;
+        float y;
 
         y = M * x + B;
-	if(y < Y1) y = Y1;
-	if(y > Y2) y = Y2;
+        if (y < Y1) y = Y1;
+        if (y > Y2) y = Y2;
 
-	return y;
+        return y;
 }
 
 /** Receive Interrupt */
