@@ -27,7 +27,7 @@
 
 #include "SBus.h"
 
-// uart buffer written by interrut
+// uart buffer written by interrupt
 static volatile uint8_t rx_buffer[RX_BUFFER_SIZE];
 static volatile uint8_t rx_buffer_head;
 
