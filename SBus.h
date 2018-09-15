@@ -45,12 +45,12 @@
 #define RX_BUFFER_SIZE 32
 #define CH_BUFFER_SIZE 16
 
-// uart baud rate
+// sbus macros
 #define SBUS_BAUD F_CPU/16/100000-1
-
-// sbus status flags
-#define SBUS_FRAME_LOST 2
-#define SBUS_FAILSAVE_ACTIVATED 3
+#define SBUS_FRAME_START 0x0f
+#define SBUS_FRAME_SIZE 25
+#define SBUS_FLAG_FRAME_LOST 2
+#define SBUS_FLAG_FAILSAVE_ACTIVATED 3
 
 /* Function Prototypes */
 void SBus_Init(void);

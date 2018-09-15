@@ -102,7 +102,7 @@ ISR(USART1_RX_vect) {
 
         c = UDR1;
         i = rx_buffer_head;
-        if (c == 0x0f && i >= 24) i = 0; // sync to sbus header
+        if (c == SBUS_FRAME_START && i >= SBUS_FRAME_SIZE - 1) i = 0; // sync to sbus header
         rx_buffer[i++] = c;
         if (i >= RX_BUFFER_SIZE) i = 0;
         rx_buffer_head = i;
