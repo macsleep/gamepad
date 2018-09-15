@@ -27,8 +27,12 @@
 
 #include "SBus.h"
 
-static volatile uint8_t rx_buffer[RX_BUffER_SIZE];
+// uart buffer written by interrut
+static volatile uint8_t rx_buffer[RX_BUFFER_SIZE];
 static volatile uint8_t rx_buffer_head;
+
+// rc channel values sent by transmitter
+static volatile uint16_t ch_buffer[CH_BUFFER_SIZE];
 
 /** Initialize UART */
 void SBus_Init(void) {
@@ -49,7 +53,6 @@ void SBus_Init(void) {
  */
 uint8_t SBus_Parse(int8_t *channels, uint8_t size) {
         uint8_t i;
-        uint16_t ch_buffer[16];
 
         ch_buffer[0] = (rx_buffer[1] | rx_buffer[2] << 8) & 0x07ff;
         ch_buffer[1] = (rx_buffer[2] >> 3 | rx_buffer[3] << 5) & 0x07ff;
@@ -68,9 +71,9 @@ uint8_t SBus_Parse(int8_t *channels, uint8_t size) {
         ch_buffer[14] = (rx_buffer[20] >> 2 | rx_buffer[21] << 6) & 0x07ff;
         ch_buffer[15] = (rx_buffer[21] >> 5 | rx_buffer[22] << 3) & 0x07ff;
 
-        if (size < 16) return (1);
+        if (size < CH_BUFFER_SIZE) return (1);
 
-        for (i = 0; i < 16; i++) {
+        for (i = 0; i < CH_BUFFER_SIZE; i++) {
                 channels[i] = SBus_Normalize(ch_buffer[i]);
         }
 
@@ -101,7 +104,7 @@ ISR(USART1_RX_vect) {
         i = rx_buffer_head;
         if (c == 0x0f && i >= 24) i = 0; // sync to sbus header
         rx_buffer[i++] = c;
-        if (i >= RX_BUffER_SIZE) i = 0;
+        if (i >= RX_BUFFER_SIZE) i = 0;
         rx_buffer_head = i;
 }
 

@@ -41,8 +41,9 @@
 #define M (Y2-Y1)/(X2-X1)
 #define B Y1-M*X1
 
-// receiver buffer
-#define RX_BUffER_SIZE 32
+// buffer sizes
+#define RX_BUFFER_SIZE 32
+#define CH_BUFFER_SIZE 16
 
 // uart baud rate
 #define SBUS_BAUD F_CPU/16/100000-1
