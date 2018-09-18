@@ -134,7 +134,7 @@ bool CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_Device_t * const HIDI
         const uint8_t ReportType,
         void* ReportData,
         uint16_t * const ReportSize) {
-        int8_t channels[16], i;
+        int8_t channels[16];
         USB_GamepadReport_Data_t* GamepadReport = (USB_GamepadReport_Data_t*) ReportData;
 
         SBus_Parse(channels, sizeof (channels));
@@ -151,12 +151,14 @@ bool CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_Device_t * const HIDI
 
 	// button values
         GamepadReport->Buttons1 = 0;
-	for(i=8; i<16; i++) {
-        	if (channels[i] > 0) GamepadReport->Buttons1 |= (1 << (i%8));
-	}
-
-        GamepadReport->Buttons2 = 0;
-        GamepadReport->Buttons3 = 0;
+        if (channels[8] > 0) GamepadReport->Buttons1 |= (1 << 0);
+        if (channels[9] > 0) GamepadReport->Buttons1 |= (1 << 1);
+        if (channels[10] > 0) GamepadReport->Buttons1 |= (1 << 2);
+        if (channels[11] > 0) GamepadReport->Buttons1 |= (1 << 3);
+        if (channels[12] > 0) GamepadReport->Buttons1 |= (1 << 4);
+        if (channels[13] > 0) GamepadReport->Buttons1 |= (1 << 5);
+        if (channels[14] > 0) GamepadReport->Buttons1 |= (1 << 6);
+        if (channels[15] > 0) GamepadReport->Buttons1 |= (1 << 7); // RSSI
 
         *ReportSize = sizeof (USB_GamepadReport_Data_t);
 
