@@ -139,7 +139,7 @@ bool CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_Device_t * const HIDI
 
         SBus_Parse(channels, sizeof (channels));
 
-	// analog values
+        // analog values
         GamepadReport->X = channels[0];
         GamepadReport->Y = channels[1];
         GamepadReport->Z = channels[2];
@@ -149,7 +149,7 @@ bool CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_Device_t * const HIDI
         GamepadReport->S1 = channels[6];
         GamepadReport->S2 = channels[7];
 
-	// button values
+        // button values
         GamepadReport->Buttons1 = 0;
         if (channels[8] > 0) GamepadReport->Buttons1 |= (1 << 0);
         if (channels[9] > 0) GamepadReport->Buttons1 |= (1 << 1);
