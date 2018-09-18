@@ -44,34 +44,34 @@
  *  more details on HID report descriptors.
  */
 const USB_Descriptor_HIDReport_Datatype_t PROGMEM GamepadReport[] = {
-        0x05, 0x01, // USAGE_PAGE (Generic Desktop)
-        0x09, 0x05, // USAGE (Game Pad)
-        0xa1, 0x01, // COLLECTION (Application)
-        0xa1, 0x00, // COLLECTION (Physical)
-        0x05, 0x09, // USAGE_PAGE (Button)
-        0x19, 0x01, // USAGE_MINIMUM (Button 1)
-        0x29, 0x18, // USAGE_MAXIMUM (Button 24)
-        0x15, 0x00, // LOGICAL_MINIMUM (0)
-        0x25, 0x01, // LOGICAL_MAXIMUM (1)
-        0x95, 0x18, // REPORT_COUNT (24)
-        0x75, 0x01, // REPORT_SIZE (1)
-        0x81, 0x02, // INPUT (Data,Var,Abs)
-        0x05, 0x01, // USAGE_PAGE (Generic Desktop)
-        0x09, 0x30, // USAGE (X)
-        0x09, 0x31, // USAGE (Y)
-        0x09, 0x32, // USAGE (Z)
-        0x09, 0x33, // USAGE (Rx)
-        0x09, 0x34, // USAGE (Ry)
-        0x09, 0x35, // USAGE (Rz)
-        0x09, 0x36, // USAGE (Slider)
-        0x09, 0x36, // USAGE (Slider)
-        0x15, 0x81, // LOGICAL_MINIMUM (-127)
-        0x25, 0x7f, // LOGICAL_MAXIMUM (127)
-        0x75, 0x08, // REPORT_SIZE (8)
-        0x95, 0x08, // REPORT_COUNT (8)
-        0x81, 0x02, // INPUT (Data,Var,Abs)
-        0xc0, // END_COLLECTION
-        0xc0 // END_COLLECTION
+	HID_RI_USAGE_PAGE(8, 0x01), /* Generic Desktop */
+	HID_RI_USAGE(8, 0x05), /* Gamepad */
+        HID_RI_COLLECTION(8, 0x01), /* Application */
+        HID_RI_COLLECTION(8, 0x00), /* Physical */
+        HID_RI_USAGE_PAGE(8, 0x09), /* Button */
+        HID_RI_USAGE_MINIMUM(8, 1),
+        HID_RI_USAGE_MAXIMUM(8, 24),
+        HID_RI_LOGICAL_MINIMUM(8, 0),
+        HID_RI_LOGICAL_MAXIMUM(8, 1),
+        HID_RI_REPORT_COUNT(8, 24),
+        HID_RI_REPORT_SIZE(8, 1),
+        HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE),
+        HID_RI_USAGE_PAGE(8, 0x01), /* Generic Desktop */
+        HID_RI_USAGE(8, 0x30), /* Usage X */
+        HID_RI_USAGE(8, 0x31), /* Usage Y */
+        HID_RI_USAGE(8, 0x32), /* Usage Z */
+        HID_RI_USAGE(8, 0x33), /* Usage Rx */
+        HID_RI_USAGE(8, 0x34), /* Usage Ry */
+        HID_RI_USAGE(8, 0x35), /* Usage Rz */
+        HID_RI_USAGE(8, 0x36), /* Usage Slider */
+        HID_RI_USAGE(8, 0x37), /* Usage Slider */
+        HID_RI_LOGICAL_MINIMUM(8, -127),
+        HID_RI_LOGICAL_MAXIMUM(8, 127),
+        HID_RI_REPORT_SIZE(8, 8),
+        HID_RI_REPORT_COUNT(8, 8),
+        HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE),
+        HID_RI_END_COLLECTION(0),
+        HID_RI_END_COLLECTION(0),
 };
 
 /** Device descriptor structure. This descriptor, located in FLASH memory, describes the overall
