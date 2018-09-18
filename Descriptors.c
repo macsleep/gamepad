@@ -64,7 +64,7 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM GamepadReport[] = {
                         HID_RI_USAGE(8, 0x34), /* Usage Ry */
                         HID_RI_USAGE(8, 0x35), /* Usage Rz */
                         HID_RI_USAGE(8, 0x36), /* Usage Slider */
-                        HID_RI_USAGE(8, 0x37), /* Usage Slider */
+                        HID_RI_USAGE(8, 0x36), /* Usage Slider */
                         HID_RI_LOGICAL_MINIMUM(8, -127),
                         HID_RI_LOGICAL_MAXIMUM(8, 127),
                         HID_RI_REPORT_SIZE(8, 8),
