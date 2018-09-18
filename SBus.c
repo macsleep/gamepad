@@ -96,6 +96,13 @@ int8_t SBus_Normalize(float x) {
         return y;
 }
 
+/** Disable UART */
+void SBus_Disable(void) {
+        cli();
+        UCSR1B = 0;
+        sei();
+}
+
 /** Receive Interrupt */
 ISR(USART1_RX_vect) {
         uint8_t c, i;

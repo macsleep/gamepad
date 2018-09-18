@@ -56,6 +56,7 @@
 void SBus_Init(void);
 uint8_t SBus_Parse(int8_t *channels, uint8_t size);
 int8_t SBus_Normalize(float x);
+void SBus_Disable(void);
 
 #endif
 
