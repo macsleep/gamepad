@@ -47,7 +47,7 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM GamepadReport[] = {
         HID_RI_USAGE_PAGE(8, 0x01), /* Generic Desktop */
         HID_RI_USAGE(8, 0x05), /* Gamepad */
         HID_RI_COLLECTION(8, 0x01), /* Application */
-		HID_RI_USAGE(8, 0x01), /* Pointer */
+                HID_RI_USAGE(8, 0x01), /* Pointer */
                 HID_RI_COLLECTION(8, 0x00), /* Physical */
                         HID_RI_USAGE(8, 0x30), /* Usage X */
                         HID_RI_USAGE(8, 0x31), /* Usage Y */
@@ -59,8 +59,8 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM GamepadReport[] = {
                         HID_RI_USAGE(8, 0x36), /* Usage Slider */
                         HID_RI_LOGICAL_MINIMUM(8, -127),
                         HID_RI_LOGICAL_MAXIMUM(8, 127),
-                        HID_RI_REPORT_COUNT(8, 0x08),
-                        HID_RI_REPORT_SIZE(8, 0x08),
+                        HID_RI_REPORT_COUNT(8, 8),
+                        HID_RI_REPORT_SIZE(8, 8),
                         HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE | HID_IOF_NO_NULL_POSITION),
                 HID_RI_END_COLLECTION(0),
 
@@ -72,7 +72,7 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM GamepadReport[] = {
                 HID_RI_REPORT_COUNT(8, 24),
                 HID_RI_REPORT_SIZE(8, 1),
                 HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE),
-	HID_RI_END_COLLECTION(0),
+        HID_RI_END_COLLECTION(0),
 };
 
 /** Device descriptor structure. This descriptor, located in FLASH memory, describes the overall
