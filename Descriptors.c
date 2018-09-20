@@ -63,7 +63,6 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM GamepadReport[] = {
                         HID_RI_REPORT_SIZE(8, 8),
                         HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE | HID_IOF_NO_NULL_POSITION),
                 HID_RI_END_COLLECTION(0),
-
                 HID_RI_USAGE_PAGE(8, 0x09), /* Button */
                 HID_RI_USAGE_MINIMUM(8, 1),
                 HID_RI_USAGE_MAXIMUM(8, 8),
