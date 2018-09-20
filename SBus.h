@@ -47,10 +47,11 @@
 
 // sbus macros
 #define SBUS_BAUD F_CPU/16/100000-1
-#define SBUS_FRAME_START 0x0f
-#define SBUS_FRAME_SIZE 25
 #define SBUS_FLAG_FRAME_LOST 2
 #define SBUS_FLAG_FAILSAVE_ACTIVATED 3
+
+// timer
+#define TIMER1_INIT_COUNT 62336
 
 /* Function Prototypes */
 void SBus_Init(void);

@@ -41,6 +41,12 @@ void SBus_Init(void) {
         UCSR1B = (1 << RXEN1) | (1 << RXCIE1); // enable receiver, interrupt
         UCSR1C = (1 << UCSZ11) | (1 << UCSZ10) | (1 << UPM11); // 8 bit, even parity
         rx_buffer_head = 0;
+
+        TCCR1A = 0; // no pwm
+        TCCR1B = 0; // no clock for prescaler
+        TCNT1 = TIMER1_INIT_COUNT; // start value
+        TCCR1B |= (1 << CS10); // prescaler 1
+        TIMSK1 |= (1 << TOIE1); // enable timer interrupt
         sei();
 }
 
@@ -99,7 +105,8 @@ int8_t SBus_Normalize(float x) {
 /** Disable UART */
 void SBus_Disable(void) {
         cli();
-        UCSR1B = 0;
+        UCSR1B &= ~((1 << RXEN1) | (1 << RXCIE1));
+	TIMSK1 &= ~(1 << TOIE1);
         sei();
 }
 
@@ -109,9 +116,14 @@ ISR(USART1_RX_vect) {
 
         c = UDR1;
         i = rx_buffer_head;
-        if (c == SBUS_FRAME_START && i >= SBUS_FRAME_SIZE - 1) i = 0; // sync to sbus header
+	TCNT1 = TIMER1_INIT_COUNT;
         rx_buffer[i++] = c;
         if (i >= RX_BUFFER_SIZE) i = 0;
         rx_buffer_head = i;
+}
+
+/** Timer Interrupt */
+ISR(TIMER1_OVF_vect) {
+        rx_buffer_head = 0;
 }
 
