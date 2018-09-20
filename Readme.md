@@ -9,7 +9,7 @@ This is software for a USB dongle to use a FrSky Taranis wirelessly with PC simu
 * FrSky XM Receiver
 	* available here: <a href="https://www.frsky-rc.com/" target="_blank">FrSky</a>
 * A transistor & resistor to invert the sbus signal for the Teensy
-	* avialbale here: <a href="https://www.reichelt.de/" target="_blank">Reichelt</a>
+	* available here: <a href="https://www.reichelt.de/" target="_blank">Reichelt</a>
 ## Software
 * AVR 8-bit gcc tool chain
 	* available here: <a href="http://www.microchip.com/" target="_blank">Microchip</a>
