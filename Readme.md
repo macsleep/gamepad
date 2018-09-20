@@ -1,22 +1,22 @@
 # SBus Gamepad
 
 ## Description
-This is software for a USB dongle to use a FrSky Taranis wirelessly with PC simulators like FPVFreerider or RC-Airsim. On the USB side there is a Teensy 2.0 with an eight bit atmega32u4 CPU. And the receiver is a FrSky XM with sbus output. The Teensy reads the sbus signal of the receiver via UART and then presents that data as a USB HID gamepad to the computer. To read the sbus signal the Teensy needs an inverter in form of a simple transistor. Please see the <a href="https://github.com/macsleep/gamepad/tree/master/docs">docs</a> directory for more details.
+This is software for a USB dongle to use a FrSky Taranis wirelessly with PC simulators like <a target="_blank" href="https://fpv-freerider.itch.io/fpv-freerider">FPVFreerider</a> or <a target="_blank" href="http://www.fabricated-reality.com">RC-Airsim</a>. On the USB side there is a Teensy 2.0 with an eight bit atmega32u4 CPU. And the receiver is a FrSky XM with sbus output. The Teensy reads the sbus signal of the receiver via UART and then presents that data as a USB HID gamepad to the computer. To read the sbus signal the Teensy needs an inverter in form of a simple transistor. Please see the docs directory for more details.
 
 ## Hardware
 * Teensy 2.0
-	* available here: <a href="https://www.pjrc.com/">PJRC</a>
+	* available here: <a target="_blank" href="https://www.pjrc.com/">PJRC</a>
 * FrSky XM Receiver
-	* available here: <a href="https://www.frsky-rc.com/">FrSky</a>
-* A transistor to invert the sbus signal for the Teensy
-
+	* available here: <a target="_blank" href="https://www.frsky-rc.com/">FrSky</a>
+* A transistor & resistor to invert the sbus signal for the Teensy
+	* avialbale here: <a target="_blank" href="https://www.reichelt.de/">Reichelt</a>
 ## Software
 * AVR 8-bit gcc tool chain
-	* available here: <a href="http://www.microchip.com/">Microchip</a>
+	* available here: <a target="_blank" href="http://www.microchip.com/">Microchip</a>
 * HalfKey Loader teensy_loader_cli
-	* available here: <a href="https://www.pjrc.com/">PJRC</a>
+	* available here: <a target="_blank" href="https://www.pjrc.com/">PJRC</a>
 * Dean Camera's excellent **L**ightweight **U**SB **F**ramework for **A**VRs (LUFA)
-	* available here: <a href="http://www.fourwalledcubicle.com/">Four Walled Cubicle</a>
+	* available here: <a target="_blank" href="http://www.fourwalledcubicle.com/">Four Walled Cubicle</a>
 
 ## Build
 * Clone or download the firmware
