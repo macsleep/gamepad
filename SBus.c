@@ -37,16 +37,20 @@ static volatile uint16_t ch_buffer[CH_BUFFER_SIZE];
 /** Initialize UART */
 void SBus_Init(void) {
         cli();
+
+	// UART
         UBRR1 = SBUS_BAUD;
         UCSR1B = (1 << RXEN1) | (1 << RXCIE1); // enable receiver, interrupt
         UCSR1C = (1 << UCSZ11) | (1 << UCSZ10) | (1 << UPM11); // 8 bit, even parity
         rx_buffer_head = 0;
 
+	// Timer1
         TCCR1A = 0; // no pwm
         TCCR1B = 0; // no clock for prescaler
         TCNT1 = TIMER1_INIT_COUNT; // start value
         TCCR1B |= (1 << CS10); // prescaler 1
         TIMSK1 |= (1 << TOIE1); // enable timer interrupt
+
         sei();
 }
 
@@ -116,14 +120,18 @@ ISR(USART1_RX_vect) {
 
         c = UDR1;
         i = rx_buffer_head;
-        TCNT1 = TIMER1_INIT_COUNT;
+        TCNT1 = TIMER1_INIT_COUNT; // reset timer
         rx_buffer[i++] = c;
         if (i >= RX_BUFFER_SIZE) i = 0;
         rx_buffer_head = i;
 }
 
-/** Timer Interrupt */
+/** Timer Interrupt
+ * The timer overflow interrupt will get triggered between sbus packets.
+ * Because it looks for the gaps there is no need to check for length,
+ * header or trailer in the data.
+ */
 ISR(TIMER1_OVF_vect) {
-        rx_buffer_head = 0;
+        rx_buffer_head = 0; 
 }
 

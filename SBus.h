@@ -30,8 +30,8 @@
 
 /* Macros: */
 // range for sbus values
-#define X1 170.0
-#define X2 1830.0
+#define X1 175.0
+#define X2 1810.0
 
 // range for usb values
 #define Y1 -127.0
@@ -50,8 +50,8 @@
 #define SBUS_FLAG_FRAME_LOST 2
 #define SBUS_FLAG_FAILSAVE_ACTIVATED 3
 
-// timer
-#define TIMER1_INIT_COUNT 62336
+// timer1 start value = 16 bit - CPU clock * 200 us / prescaler value
+#define TIMER1_INIT_COUNT 65536-F_CPU*0.0002/1
 
 /* Function Prototypes */
 void SBus_Init(void);
