@@ -51,7 +51,7 @@
 #define SBUS_FLAG_FAILSAVE_ACTIVATED 3
 
 // timer1 start value = 16 bit - CPU clock * 200 us / prescaler value
-#define TIMER1_INIT_COUNT 65536-F_CPU*0.0002/1
+#define TIMER1_INIT_COUNT 65536-F_CPU*0.0002/8
 
 /* Function Prototypes */
 void SBus_Init(void);
