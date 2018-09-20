@@ -1,5 +1,5 @@
 /*
-  Copyright 2018 macsleep
+  Copyright 2018 Jan Schlieper
 
   Permission to use, copy, modify, distribute, and sell this
   software and its documentation for any purpose is hereby granted
