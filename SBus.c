@@ -106,7 +106,7 @@ int8_t SBus_Normalize(float x) {
         return y;
 }
 
-/** Disable UART */
+/** Disable UART & Timer */
 void SBus_Disable(void) {
         cli();
         UCSR1B &= ~((1 << RXEN1) | (1 << RXCIE1));
