@@ -127,9 +127,9 @@ ISR(USART1_RX_vect) {
 }
 
 /** Timer Interrupt
- * The timer overflow interrupt will get triggered between sbus packets.
- * Because it looks for the gaps there is no need to check for length,
- * header or trailer in the data.
+ *  The timer overflow interrupt will get triggered between sbus packets.
+ *  Because it looks for the gaps there is no need to check for length,
+ *  header or trailer in the data.
  */
 ISR(TIMER1_OVF_vect) {
         rx_buffer_head = 0;
