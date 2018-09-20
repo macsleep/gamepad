@@ -106,7 +106,7 @@ int8_t SBus_Normalize(float x) {
 void SBus_Disable(void) {
         cli();
         UCSR1B &= ~((1 << RXEN1) | (1 << RXCIE1));
-	TIMSK1 &= ~(1 << TOIE1);
+        TIMSK1 &= ~(1 << TOIE1);
         sei();
 }
 
@@ -116,7 +116,7 @@ ISR(USART1_RX_vect) {
 
         c = UDR1;
         i = rx_buffer_head;
-	TCNT1 = TIMER1_INIT_COUNT;
+        TCNT1 = TIMER1_INIT_COUNT;
         rx_buffer[i++] = c;
         if (i >= RX_BUFFER_SIZE) i = 0;
         rx_buffer_head = i;
