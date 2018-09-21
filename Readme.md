@@ -19,13 +19,14 @@ This is software for a USB dongle to use a FrSky Taranis wirelessly with PC simu
 	* available here: <a href="http://www.fourwalledcubicle.com/" target="_blank">Four Walled Cubicle</a>
 
 ## Build
-* Clone or download the firmware
-* Edit the Makefile and change the LUFA_PATH to where ever you installed LUFA
-* Make sure the avr-gcc and teensy_loader_cli are in your path
-* Execute "make" to build the HEX file
-* Execute "make program" to download the HEX file to the attached Teensy 2.0
-
-If you don't want to build the software yourself just download the Gamepad.hex.save file and load it to the Teensy 2.0 using teensy_loader_cli (see Makefile for parameters).
+* clone or download the firmware
+* edit the Makefile and change the LUFA_PATH to where ever you installed LUFA
+* make sure the avr-gcc and teensy_loader_cli are in your path
+* execute "make" to build the HEX file
+* press and release the tiny Teensy pushbutton to activate the HalfKey bootloader
+* execute "make teensy" to download the HEX file to the attached Teensy
+ 
+If you don't want to build the software yourself just download the Gamepad.hex.save file and load it to the Teensy 2.0 using: `teensy_loader_cli --mcu=atmega32u4 -w -v Gamepad.hex.save`
 
 ## Usage
 Create a new model for the sbus gamepad on your transmitter. Make sure that you enable ailerons, elevator, throttle and rudder for the receiver at minimum. Bind the receiver like you normally would. Use software like <a href="http://html5gamepad.com">HTML5 Gamepad Tester</a> to test the sbus gamepad. Once you have confirmed operation start your favorite simulator and see if it recognizes the sbus gamepad.

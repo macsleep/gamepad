@@ -26,10 +26,6 @@ LD_FLAGS     =
 # Default target
 all:
 
-# HalfKay Bootlader
-program:
-	teensy_loader_cli --mcu=$(MCU) -w -v $(TARGET).hex 
-
 # Include LUFA-specific DMBS extension modules
 DMBS_LUFA_PATH ?= $(LUFA_PATH)/Build/LUFA
 include $(DMBS_LUFA_PATH)/lufa-sources.mk
