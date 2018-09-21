@@ -1,6 +1,6 @@
 # SBus Protocol
 
-The sbus protocol is a 100 kilo baud serial protocol (1 start bit, 8 data bits, 1 even parity bit and 2 stop bits). Every 7 milliseconds a packet of 25 bytes gets sent by the receiver. The packet is made up of a start byte, 22 data bytes, one flag byte and an end byte:
+The sbus protocol is a 100 kilo baud serial protocol (1 start bit, 8 data bits, 1 even parity bit and 2 stop bits). Every 9 milliseconds a packet of 25 bytes gets sent by the receiver. The packet is made up of a start byte, 22 data bytes, one flag byte and an end byte:
 
 [start][data1][data2][data3][data4][data5][data6][data7][data8][data9][data10][data11][data12][data13][data14][data15][data16][data17][data18][data19][data20][data21][data22][flags][end]
 
