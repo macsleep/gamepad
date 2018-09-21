@@ -8,7 +8,5 @@ The start byte is 0x0f and the end byte usually 0x00. Remember these are the val
 
 Inside the 22 data bytes the 16 rc channels are encoded. Each rc channel is made up of 11 bits (a value between 0 and 2047). Because of this a rc channel value is spread over 2-3 data bytes. Channel 1 e.g. can be found in [data1] and the next 3 bits of [data2]. Please see the code for details.
 
----
-
 Date: 2018-09-21
 
