@@ -63,6 +63,7 @@
  *  200 us should give the AVR adequate time to reset the timer while
  *  receiving a sbus packet: 16 bit - CPU clock * 200 us / prescaler value
  */
+
 #define TIMER1_INIT_COUNT 65536-F_CPU*0.0002/8
 
 /* Function Prototypes */
