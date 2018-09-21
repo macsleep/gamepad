@@ -1,4 +1,4 @@
-# SBus Gamepad
+``# SBus Gamepad
 
 ## Description
 This is software for a USB dongle to use a FrSky Taranis wirelessly with PC simulators like <a href="https://fpv-freerider.itch.io/fpv-freerider" target="_blank">FPVFreerider</a> or <a href="http://www.fabricated-reality.com" target="_blank">RC-Airsim</a>. On the USB side there is a Teensy 2.0 with an eight bit atmega32u4 CPU. And the receiver is a FrSky XM with sbus output. The Teensy reads the sbus signal of the receiver via UART and then presents that data as a USB HID gamepad to the computer. To read the sbus signal the Teensy needs an inverter in form of a simple transistor. Please see the docs directory for more details.
@@ -22,9 +22,9 @@ This is software for a USB dongle to use a FrSky Taranis wirelessly with PC simu
 * clone or download the firmware
 * edit the Makefile and change the LUFA_PATH to where ever you installed LUFA
 * make sure the avr-gcc and teensy_loader_cli are in your path
-* execute "make" to build the HEX file
+* execute `make` to build the HEX file
 * press and release the tiny Teensy pushbutton to activate the HalfKey bootloader
-* execute "make teensy" to download the HEX file to the attached Teensy
+* execute `make teensy` to download the HEX file to the attached Teensy
  
 If you don't want to build the software yourself just download the Gamepad.hex.save file and load it to the Teensy 2.0 using: `teensy_loader_cli --mcu=atmega32u4 -w -v Gamepad.hex.save`
 
