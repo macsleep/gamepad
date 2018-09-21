@@ -29,6 +29,13 @@
 #include <avr/interrupt.h>
 
 /* Macros: */
+
+/** To get a linear equation from two points in a 2d Cartesian
+ *  coordinate system you need to solve y = m * x + b for both
+ *  points (x1, y1), (x2, y2). This gives you two equations with
+ *  two unkowns (m and b) which can then be solved for m and b.
+ */
+
 // range for sbus values
 #define X1 175.0
 #define X2 1810.0
