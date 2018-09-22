@@ -29,4 +29,4 @@ The Teensy presents itself as a Generic Desktop **H**uman **I**nterface **D**evi
 	* Input (Data, Variable, Absolute, No Wrap, Linear, Preferred State, No Null Position, Bitfield) 
 * End Collection
 
-The first 8 bytes contain the first 8 channels the receiver sends. The channel values of 0 to 2047 are converted to a USB friendly signed byte (-127 to 127). The next 8 channels get encoded into 1 byte as buttons that are either "on" or "off" (one bit equals one button). If the converted channel value is greater than zero the button is "on" (1) and otherwise "off" (0). Be aware that the XM receiver sends the **R**adio **S**ignal **S**trength **I**ndicator (RSSI) in channel 16 to the Teensy (this button is usually "on").
+The first 8 bytes contain the first 8 channels the receiver sends. The channel values of 0 to 2047 are converted to a USB friendly signed byte (-127 to 127). The next 8 channels get encoded into 1 byte as buttons that are either "on" or "off" (one bit equals one button). If the converted channel value is greater than zero the button is "on" (1) and otherwise "off" (0).

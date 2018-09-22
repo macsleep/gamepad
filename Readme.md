@@ -31,9 +31,5 @@ If you don't want to build the software yourself just download the Gamepad.hex.s
 ## Usage
 Create a new model for the sbus gamepad on your transmitter. Make sure that you enable ailerons, elevator, throttle and rudder for the receiver at minimum. Bind the receiver like you normally would. Use software like <a href="http://html5gamepad.com">HTML5 Gamepad Tester</a> to test the sbus gamepad. Once you have confirmed operation start your favorite simulator and see if it recognizes the sbus gamepad.
 
-## Testing
-
-All testing was done using a Teensy 2.0 and the 16 channel FrSky XM receiver (no other hardware was tested). Shoud you need to adjust the range of the sbus values sent by your transmitter please edit the X1, X2 macros in the SBus.h file and rebuild. The Teensy needs to run with 5 volts to be a full speed USB device. Also the FrSky XM receiver needs the 5 volts to operate (output of the sbus signal is 3.3 volts though). Total power consumption should be around 50 ma at 5 volts (30 ma for the Teensy and 20 ma for the XM receiver).
-
 Date: 2018-09-21
 
