@@ -2,7 +2,7 @@
 
 All testing was done using a Teensy 2.0 and the 16 channel FrSky XM receiver (no other hardware was used).
 
-A nice way to check the values the sbus gamepad provides is the [HTML5 Gamepad Tester](http://html5gamepad.com/). Values should toogle between -1 and 1 for the analog inputs. On my computer the sliders where not displayed by HTML5 Gamepad.
+A nice way to check the values the sbus gamepad provides is the [HTML5 Gamepad Tester](http://html5gamepad.com/). Values should toogle between -1 and 1 for the analog inputs. On my computer the two sliders where not displayed.
 
 ![image](HTML5Gamepad.png)
 
