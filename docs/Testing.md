@@ -12,6 +12,19 @@ Be aware that the XM receiver sends the **R**adio **S**ignal **S**trength **I**n
 
 The Teensy needs to run with 5 volts to be a full speed USB device. Also the FrSky XM receiver needs the 5 volts to operate (output of the sbus signal is 3.3 volts though). Total power consumption should be around 50 ma at 5 volts (30 ma for the Teensy and 20 ma for the XM receiver).
 
+Memory usage does not seem to be an issue currently. It might even be possible to fit this firmware into an atmega8u2 (8k flash, 512 bytes RAM):
+
+```
+AVR Memory Usage
+Device: atmega32u4
+
+Program:    6212 bytes (19.0% Full)
+(.text + .data + .bootloader)
+
+Data:        103 bytes (4.0% Full)
+(.data + .bss + .noinit)
+```
+
 Date: 2018-09-22
 
 
