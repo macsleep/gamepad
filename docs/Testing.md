@@ -10,7 +10,7 @@ Shoud you need to adjust the range of the sbus values sent by your transmitter p
 
 Be aware that the XM receiver sends the **R**adio **S**ignal **S**trength **I**ndicator (RSSI) in channel 16 to the Teensy. Because of this the last button (B7) is usually "on".
 
-The Teensy needs to run with 5 volts to be a full speed USB device. Also the FrSky XM receiver needs the 5 volts to operate (output of the sbus signal is 3.3 volts though). Total power consumption should be around 50 ma at 5 volts (30 ma for the Teensy and 20 ma for the XM receiver).
+The Teensy needs to run with 5 Volts to be a full speed USB device. Also the FrSky XM receiver needs the 5 Volts to operate (output of the sbus signal is 3.3 Volts though). Total power consumption should be around 50 mA at 5 Volts (30 mA for the Teensy and 20 mA for the XM receiver).
 
 Memory usage does not seem to be an issue currently. It might even be possible to fit this firmware into an atmega8u2 (8k flash, 512 bytes RAM):
 
