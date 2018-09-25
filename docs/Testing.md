@@ -24,7 +24,7 @@ Program:    6212 bytes (19.0% Full)
 Data:        103 bytes (4.0% Full)
 (.data + .bss + .noinit)
 ```
+Depending on how you set the receiver failsafe the gamepad will provide those values when you shutdown the transmitter while the sbus gamepad is still connected. Please see the XM receiver documentation for details.
 
 Date: 2018-09-22
-
 
