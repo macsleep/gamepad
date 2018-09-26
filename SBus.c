@@ -36,13 +36,39 @@ static volatile uint16_t ch_buffer[CH_BUFFER_SIZE];
 
 /** Initialize UART */
 void SBus_Init(void) {
+	uint16_t initial = CENTER_POSITION;
+
+	// serial buffer
+	rx_buffer[1] = (uint8_t) (initial & 0x07ff);
+        rx_buffer[2] = (uint8_t) ((initial & 0x07ff) >> 8 | (initial & 0x07ff) << 3);
+        rx_buffer[3] = (uint8_t) ((initial & 0x07ff) >> 5 | (initial & 0x07ff) << 6);
+        rx_buffer[4] = (uint8_t) ((initial & 0x07ff) >> 2);
+        rx_buffer[5] = (uint8_t) ((initial & 0x07ff) >> 10 | (initial & 0x07ff) << 1);
+        rx_buffer[6] = (uint8_t) ((initial & 0x07ff) >> 7 | (initial & 0x07ff) << 4);
+        rx_buffer[7] = (uint8_t) ((initial & 0x07ff) >> 4 | (initial & 0x07ff) << 7);
+        rx_buffer[8] = (uint8_t) ((initial & 0x07ff) >> 1);
+        rx_buffer[9] = (uint8_t) ((initial & 0x07ff) >> 9 | (initial & 0x07ff) << 2);
+        rx_buffer[10] = (uint8_t) ((initial & 0x07ff) >> 6 | (initial & 0x07ff) << 5);
+        rx_buffer[11] = (uint8_t) ((initial & 0x07ff) >> 3);
+        rx_buffer[12] = (uint8_t) ((initial & 0x07ff));
+        rx_buffer[13] = (uint8_t) ((initial & 0x07ff) >> 8 | (initial & 0x07ff) << 3);
+        rx_buffer[14] = (uint8_t) ((initial & 0x07ff) >> 5 | (initial & 0x07ff) << 6);
+        rx_buffer[15] = (uint8_t) ((initial & 0x07ff) >> 2);
+        rx_buffer[16] = (uint8_t) ((initial & 0x07ff) >> 10 | (initial & 0x07ff) << 1);
+        rx_buffer[17] = (uint8_t) ((initial & 0x07ff) >> 7 | (initial & 0x07ff) << 4);
+        rx_buffer[18] = (uint8_t) ((initial & 0x07ff) >> 4 | (initial & 0x07ff) << 7);
+        rx_buffer[19] = (uint8_t) ((initial & 0x07ff) >> 1);
+        rx_buffer[20] = (uint8_t) ((initial & 0x07ff) >> 9 | (initial & 0x07ff) << 2);
+        rx_buffer[21] = (uint8_t) ((initial & 0x07ff) >> 6 | (initial & 0x07ff) << 5);
+        rx_buffer[22] = (uint8_t) ((initial & 0x07ff) >> 3);
+        rx_buffer_head = 0;
+
         cli();
 
         // UART
         UBRR1 = SBUS_BAUD;
         UCSR1B = (1 << RXEN1) | (1 << RXCIE1); // enable receiver, interrupt
         UCSR1C = (1 << UCSZ11) | (1 << UCSZ10) | (1 << UPM11); // 8 bit, even parity
-        rx_buffer_head = 0;
 
         // Timer1
         TCCR1A = 0; // no pwm

@@ -48,6 +48,9 @@
 #define M (Y2-Y1)/(X2-X1)
 #define B Y1-M*X1
 
+// rx_buffer default value
+#define CENTER_POSITION X1+(X2-X1)/2
+
 // buffer sizes
 #define RX_BUFFER_SIZE 32
 #define CH_BUFFER_SIZE 16
