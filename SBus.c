@@ -36,10 +36,10 @@ static volatile uint16_t ch_buffer[CH_BUFFER_SIZE];
 
 /** Initialize UART */
 void SBus_Init(void) {
-	uint16_t initial = CENTER_POSITION;
+        uint16_t initial = CENTER_POSITION;
 
-	// serial buffer
-	rx_buffer[1] = (uint8_t) (initial & 0x07ff);
+        // serial buffer
+        rx_buffer[1] = (uint8_t) (initial & 0x07ff);
         rx_buffer[2] = (uint8_t) ((initial & 0x07ff) >> 8 | (initial & 0x07ff) << 3);
         rx_buffer[3] = (uint8_t) ((initial & 0x07ff) >> 5 | (initial & 0x07ff) << 6);
         rx_buffer[4] = (uint8_t) ((initial & 0x07ff) >> 2);
