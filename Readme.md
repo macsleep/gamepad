@@ -20,7 +20,7 @@ Ever wanted to use a FrSky Taranis wirelessly with PC simulators like [FPVFreeri
 
 ## Build
 * clone or download the firmware
-* edit the Makefile and change the LUFA_PATH to where ever you installed LUFA
+* edit the Makefile and change the LUFA_PATH to wherever you installed LUFA
 * make sure the avr-gcc and teensy_loader_cli are in your path
 * execute `make` to build the hex file
 * press and release the tiny Teensy pushbutton to activate the HalfKey bootloader
