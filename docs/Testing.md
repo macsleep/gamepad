@@ -16,9 +16,10 @@ Memory usage currently does not seem to be an issue. It might even be possible t
 
 ```
 AVR Memory Usage
+----------------
 Device: atmega32u4
 
-Program:    6212 bytes (19.0% Full)
+Program:    6282 bytes (19.2% Full)
 (.text + .data + .bootloader)
 
 Data:        103 bytes (4.0% Full)
