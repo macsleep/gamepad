@@ -12,7 +12,7 @@ Be aware that the XM receiver sends the **R**adio **S**ignal **S**trength **I**n
 
 The Teensy needs to run with 5 Volts to be a full speed USB device. Also the FrSky XM receiver needs the 5 Volts to operate (output of the sbus signal is 3.3 Volts though). Total power consumption should be around 50 mA at 5 Volts (30 mA for the Teensy and 20 mA for the XM receiver).
 
-Memory usage does not seem to be an issue currently. It might even be possible to fit this firmware into an atmega8u2 (8k flash, 512 bytes RAM):
+Memory usage currently does not seem to be an issue. It might even be possible to fit this firmware into an atmega8u2 (8k flash, 512 bytes RAM):
 
 ```
 AVR Memory Usage
@@ -24,7 +24,8 @@ Program:    6212 bytes (19.0% Full)
 Data:        103 bytes (4.0% Full)
 (.data + .bss + .noinit)
 ```
-Depending on how you set the receiver failsafe the gamepad will provide those values when you shutdown the transmitter while the sbus gamepad is still connected. Please see the XM receiver documentation for details.
+
+Depending on how you set the receiver failsafe the gamepad will pass on those values when you shutdown the transmitter while the sbus gamepad is still connected. Please see the XM receiver documentation for details.
 
 Date: 2018-09-22
 
