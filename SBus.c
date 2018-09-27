@@ -29,7 +29,7 @@
 
 // uart buffer written by interrupt
 static volatile uint8_t rx_buffer[RX_BUFFER_SIZE];
-static volatile uint8_t rx_buffer_head;
+static volatile uint8_t rx_buffer_head = 0;
 
 // rc channel values sent by transmitter
 static volatile uint16_t ch_buffer[CH_BUFFER_SIZE];
@@ -37,8 +37,6 @@ static volatile uint16_t ch_buffer[CH_BUFFER_SIZE];
 /** Initialize UART */
 void SBus_Init(void) {
         uint16_t val = CENTER_POSITION;
-
-        rx_buffer_head = 0;
 
         // serial buffer
         rx_buffer[1] = (uint8_t) val;
