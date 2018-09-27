@@ -36,7 +36,7 @@
  *  two unkowns (m and b) which can then be solved for m and b.
  */
 
-// range for sbus values
+// range for sbus values (min:0, max:2047)
 #define X1 175.0
 #define X2 1810.0
 
