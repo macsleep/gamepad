@@ -56,7 +56,15 @@
 #define CH_BUFFER_SIZE 16
 
 // sbus macros
+
+/** The UART currently operates without the U2X1 bit set in UCSR1A.
+ *  The U2X1 bit reduces the divisor for the UART clock from 16 to 8
+ *  making higher baud rates possible. The drawback of using the U2X1
+ *  bit is it also halves the samples taken by the UART. So without
+ *  the U2X1 bit set serial operations should be more stable.
+ */
 #define SBUS_BAUD F_CPU/16/100000-1
+
 #define SBUS_FLAG_FRAME_LOST 2
 #define SBUS_FLAG_FAILSAVE_ACTIVATED 3
 
@@ -66,7 +74,6 @@
  *  200 us should give the AVR adequate time to reset the timer while
  *  receiving a sbus packet: 16 bit - CPU clock * 200 us / prescaler value
  */
-
 #define TIMER1_INIT_COUNT 65536-F_CPU*0.0002/8
 
 /* Function Prototypes */
