@@ -43,11 +43,11 @@ void SBus_Init(void) {
         rx_buffer[2] = (uint8_t) (val >> 8 | val << 3);
         rx_buffer[3] = (uint8_t) (val >> 5 | val << 6);
         rx_buffer[4] = (uint8_t) (val >> 2);
-        rx_buffer[5] = (uint8_t) (val >> 10 | (val) << 1);
-        rx_buffer[6] = (uint8_t) (val >> 7 | (val) << 4);
-        rx_buffer[7] = (uint8_t) (val >> 4 | (val) << 7);
+        rx_buffer[5] = (uint8_t) (val >> 10 | val << 1);
+        rx_buffer[6] = (uint8_t) (val >> 7 | val << 4);
+        rx_buffer[7] = (uint8_t) (val >> 4 | val << 7);
         rx_buffer[8] = (uint8_t) (val >> 1);
-        rx_buffer[9] = (uint8_t) (val >> 9 | (val) << 2);
+        rx_buffer[9] = (uint8_t) (val >> 9 | val << 2);
         rx_buffer[10] = (uint8_t) (val >> 6 | val << 5);
         rx_buffer[11] = (uint8_t) (val >> 3);
         rx_buffer[12] = (uint8_t) val;
