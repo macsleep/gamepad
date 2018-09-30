@@ -62,8 +62,6 @@ void SBus_Init(void) {
         rx_buffer[21] = (uint8_t) (val >> 6 | val << 5);
         rx_buffer[22] = (uint8_t) (val >> 3);
 
-        cli();
-
         // UART
         UBRR1 = SBUS_BAUD;
         UCSR1B = (1 << RXEN1) | (1 << RXCIE1); // enable receiver, interrupt
@@ -75,8 +73,6 @@ void SBus_Init(void) {
         TCNT1 = 0; // start value
         TCCR1B |= (1 << CS11); // prescaler 8
         TIMSK1 |= (1 << TOIE1); // enable timer interrupt
-
-        sei();
 }
 
 /** Parse the serial buffer for results
@@ -133,10 +129,8 @@ int8_t SBus_Normalize(float x) {
 
 /** Disable UART & Timer */
 void SBus_Disable(void) {
-        cli();
         UCSR1B &= ~((1 << RXEN1) | (1 << RXCIE1));
         TIMSK1 &= ~(1 << TOIE1);
-        sei();
 }
 
 /** Receive Interrupt */
