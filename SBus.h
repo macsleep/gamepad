@@ -52,8 +52,8 @@
 #define CENTER_POSITION X1+(X2-X1)/2
 
 // buffer sizes
-#define RX_BUFFER_SIZE 32
 #define CH_BUFFER_SIZE 16
+#define RX_BUFFER_SIZE 32
 
 // sbus macros
 
@@ -65,6 +65,7 @@
  */
 #define SBUS_BAUD F_CPU/16/100000-1
 
+#define SBUS_FLAGS 1+((CH_BUFFER_SIZE/8)*11)
 #define SBUS_FLAG_FRAME_LOST 2
 #define SBUS_FLAG_FAILSAVE_ACTIVATED 3
 
@@ -74,11 +75,11 @@
  *  200 us should give the AVR adequate time to reset the timer while
  *  receiving a sbus packet: 16 bit - CPU clock * 200 us / prescaler value
  */
-#define TIMER1_INIT_COUNT 65536-F_CPU*0.0002/8
+#define TIMER1_INIT_COUNT 0xffff-F_CPU*0.0002/8
 
 /* Function Prototypes */
 void SBus_Init(void);
-uint8_t SBus_Parse(int8_t *channels, uint8_t size);
+uint8_t SBus_GetChannel(uint8_t channel, int8_t *value);
 int8_t SBus_Normalize(float x);
 void SBus_Disable(void);
 

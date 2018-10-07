@@ -8,7 +8,7 @@ A nice way to check the sbus gamepad values is the [HTML5 Gamepad Tester](http:/
 
 Shoud you need to adjust the range of the sbus values sent by your transmitter please edit the X1, X2 macros in the SBus.h file and rebuild.
 
-Be aware that the XM receiver sends the **R**adio **S**ignal **S**trength **I**ndicator (RSSI) in channel 16 to the Teensy. Because of this the last button (B7) is usually "on".
+Be aware that depending on the firmware the XM receiver sends the **R**adio **S**ignal **S**trength **I**ndicator (RSSI) in channel 16 to the Teensy. Because of this the last button (B7) is "on".
 
 The Teensy needs to run with 5 Volts to be a full speed USB device. Also the FrSky XM receiver needs the 5 Volts to operate (output of the sbus signal is 3.3 Volts though). Total power consumption should be around 50 mA at 5 Volts (30 mA for the Teensy and 20 mA for the XM receiver).
 
@@ -19,14 +19,12 @@ AVR Memory Usage
 ----------------
 Device: atmega32u4
 
-Program:    6282 bytes (19.2% Full)
+Program:    6464 bytes (19.7% Full)
 (.text + .data + .bootloader)
 
 Data:        103 bytes (4.0% Full)
 (.data + .bss + .noinit)
 ```
-
-Depending on how you set the receiver failsafe the gamepad will pass on those values when you shutdown the transmitter while the sbus gamepad is still connected. Please see the XM receiver documentation for details.
 
 Date: 2018-09-22
 

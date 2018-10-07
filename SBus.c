@@ -36,31 +36,13 @@ static volatile uint16_t ch_buffer[CH_BUFFER_SIZE];
 
 /** Initialize UART */
 void SBus_Init(void) {
-        uint16_t val = CENTER_POSITION;
+        uint8_t i;
 
-        // serial buffer
-        rx_buffer[1] = (uint8_t) val;
-        rx_buffer[2] = (uint8_t) (val >> 8 | val << 3);
-        rx_buffer[3] = (uint8_t) (val >> 5 | val << 6);
-        rx_buffer[4] = (uint8_t) (val >> 2);
-        rx_buffer[5] = (uint8_t) (val >> 10 | val << 1);
-        rx_buffer[6] = (uint8_t) (val >> 7 | val << 4);
-        rx_buffer[7] = (uint8_t) (val >> 4 | val << 7);
-        rx_buffer[8] = (uint8_t) (val >> 1);
-        rx_buffer[9] = (uint8_t) (val >> 9 | val << 2);
-        rx_buffer[10] = (uint8_t) (val >> 6 | val << 5);
-        rx_buffer[11] = (uint8_t) (val >> 3);
-        rx_buffer[12] = (uint8_t) val;
-        rx_buffer[13] = (uint8_t) (val >> 8 | val << 3);
-        rx_buffer[14] = (uint8_t) (val >> 5 | val << 6);
-        rx_buffer[15] = (uint8_t) (val >> 2);
-        rx_buffer[16] = (uint8_t) (val >> 10 | val << 1);
-        rx_buffer[17] = (uint8_t) (val >> 7 | val << 4);
-        rx_buffer[18] = (uint8_t) (val >> 4 | val << 7);
-        rx_buffer[19] = (uint8_t) (val >> 1);
-        rx_buffer[20] = (uint8_t) (val >> 9 | val << 2);
-        rx_buffer[21] = (uint8_t) (val >> 6 | val << 5);
-        rx_buffer[22] = (uint8_t) (val >> 3);
+        // set flags
+        rx_buffer[SBUS_FLAGS] = (1 << SBUS_FLAG_FRAME_LOST);
+
+        // sbus buffer
+        for (i = 0; i < CH_BUFFER_SIZE; i++) ch_buffer[i] = CENTER_POSITION;
 
         // UART
         UBRR1 = SBUS_BAUD;
@@ -75,48 +57,15 @@ void SBus_Init(void) {
         TIMSK1 |= (1 << TOIE1); // enable timer interrupt
 }
 
-/** Parse the serial buffer for results
- *
- *  \param[out]    buffer where parsed result should be stored
- *  \param[in]     size of buffer
- *
- *  \return Int \c zero if there is something to report, \c non zero if problem
- */
-uint8_t SBus_Parse(int8_t *channels, uint8_t size) {
-        uint8_t i;
+/** getter for the channel values */
+uint8_t SBus_GetChannel(uint8_t channel, int8_t *value) {
+        if (channel >= CH_BUFFER_SIZE) return -1;
+        *value = SBus_Normalize(ch_buffer[channel]);
 
-        ch_buffer[0] = (rx_buffer[1] | rx_buffer[2] << 8) & 0x07ff;
-        ch_buffer[1] = (rx_buffer[2] >> 3 | rx_buffer[3] << 5) & 0x07ff;
-        ch_buffer[2] = (rx_buffer[3] >> 6 | rx_buffer[4] << 2 | rx_buffer[5] << 10) & 0x07ff;
-        ch_buffer[3] = (rx_buffer[5] >> 1 | rx_buffer[6] << 7) & 0x07ff;
-        ch_buffer[4] = (rx_buffer[6] >> 4 | rx_buffer[7] << 4) & 0x07ff;
-        ch_buffer[5] = (rx_buffer[7] >> 7 | rx_buffer[8] << 1 | rx_buffer[9] << 9) & 0x07ff;
-        ch_buffer[6] = (rx_buffer[9] >> 2 | rx_buffer[10] << 6) & 0x07ff;
-        ch_buffer[7] = (rx_buffer[10] >> 5 | rx_buffer[11] << 3) & 0x07ff;
-        ch_buffer[8] = (rx_buffer[12] | rx_buffer[13] << 8) & 0x07ff;
-        ch_buffer[9] = (rx_buffer[13] >> 3 | rx_buffer[14] << 5) & 0x07ff;
-        ch_buffer[10] = (rx_buffer[14] >> 6 | rx_buffer[15] << 2 | rx_buffer[16] << 10) & 0x07ff;
-        ch_buffer[11] = (rx_buffer[16] >> 1 | rx_buffer[17] << 7) & 0x07ff;
-        ch_buffer[12] = (rx_buffer[17] >> 4 | rx_buffer[18] << 4) & 0x07ff;
-        ch_buffer[13] = (rx_buffer[18] >> 7 | rx_buffer[19] << 1 | rx_buffer[20] << 9) & 0x07ff;
-        ch_buffer[14] = (rx_buffer[20] >> 2 | rx_buffer[21] << 6) & 0x07ff;
-        ch_buffer[15] = (rx_buffer[21] >> 5 | rx_buffer[22] << 3) & 0x07ff;
-
-        if (size < CH_BUFFER_SIZE) return (1);
-
-        for (i = 0; i < CH_BUFFER_SIZE; i++) {
-                channels[i] = SBus_Normalize(ch_buffer[i]);
-        }
-
-        return (0);
+        return 0;
 }
 
-/** Normalize SBus values
- *
- *  \param[in]     sbus value (0 to 2047)
- *
- *  \return        usb value (-127 to 127)
- */
+/** Normalize SBus values */
 int8_t SBus_Normalize(float x) {
         float y;
 
@@ -151,6 +100,27 @@ ISR(USART1_RX_vect) {
  *  header or trailer in the data.
  */
 ISR(TIMER1_OVF_vect) {
+        uint8_t i, ch_base, rx_base;
+
+        // sync to sbus header
         rx_buffer_head = 0;
+
+        // frame lost
+        if (rx_buffer[SBUS_FLAGS] & (1 << SBUS_FLAG_FRAME_LOST)) return;
+
+        // save sbus channels
+        for (i = 0; i < (CH_BUFFER_SIZE / 8); i++) {
+                ch_base = (i * 8);
+                rx_base = 1 + (i * 11);
+
+                ch_buffer[ch_base + 0] = (rx_buffer[rx_base + 0] | rx_buffer[rx_base + 1] << 8) & 0x07ff;
+                ch_buffer[ch_base + 1] = (rx_buffer[rx_base + 1] >> 3 | rx_buffer[rx_base + 2] << 5) & 0x07ff;
+                ch_buffer[ch_base + 2] = (rx_buffer[rx_base + 2] >> 6 | rx_buffer[rx_base + 3] << 2 | rx_buffer[rx_base + 4] << 10) & 0x07ff;
+                ch_buffer[ch_base + 3] = (rx_buffer[rx_base + 4] >> 1 | rx_buffer[rx_base + 5] << 7) & 0x07ff;
+                ch_buffer[ch_base + 4] = (rx_buffer[rx_base + 5] >> 4 | rx_buffer[rx_base + 6] << 4) & 0x07ff;
+                ch_buffer[ch_base + 5] = (rx_buffer[rx_base + 6] >> 7 | rx_buffer[rx_base + 7] << 1 | rx_buffer[rx_base + 8] << 9) & 0x07ff;
+                ch_buffer[ch_base + 6] = (rx_buffer[rx_base + 8] >> 2 | rx_buffer[rx_base + 9] << 6) & 0x07ff;
+                ch_buffer[ch_base + 7] = (rx_buffer[rx_base + 9] >> 5 | rx_buffer[rx_base + 10] << 3) & 0x07ff;
+        }
 }
 
