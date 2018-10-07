@@ -22,7 +22,7 @@
 
 /** \file
  *
- * functions for reading the sbus packets via an inverter into the uart of the teensy 2.0
+ * functions for reading the sbus packets via an inverter into the UART of the teensy
  */
 
 #include "SBus.h"
