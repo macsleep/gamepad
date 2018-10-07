@@ -127,30 +127,34 @@ bool CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_Device_t * const HIDI
         const uint8_t ReportType,
         void* ReportData,
         uint16_t * const ReportSize) {
-        int8_t value;
+        int8_t channel[16];
         USB_GamepadReport_Data_t* GamepadReport = (USB_GamepadReport_Data_t*) ReportData;
 
+        // get channels
+        SBus_Channel(channel, sizeof (channel));
+
         // analog values
-        if (!SBus_GetChannel(0, &value)) GamepadReport->X = value;
-        if (!SBus_GetChannel(1, &value)) GamepadReport->Y = value;
-        if (!SBus_GetChannel(2, &value)) GamepadReport->Z = value;
-        if (!SBus_GetChannel(3, &value)) GamepadReport->Rx = value;
-        if (!SBus_GetChannel(4, &value)) GamepadReport->Ry = value;
-        if (!SBus_GetChannel(5, &value)) GamepadReport->Rz = value;
-        if (!SBus_GetChannel(6, &value)) GamepadReport->S1 = value;
-        if (!SBus_GetChannel(7, &value)) GamepadReport->S2 = value;
+        GamepadReport->X = channel[0];
+        GamepadReport->Y = channel[1];
+        GamepadReport->Z = channel[2];
+        GamepadReport->Rx = channel[3];
+        GamepadReport->Ry = channel[4];
+        GamepadReport->Rz = channel[5];
+        GamepadReport->S1 = channel[6];
+        GamepadReport->S2 = channel[7];
 
         // button values
         GamepadReport->Buttons1 = 0;
-        if (!SBus_GetChannel(8, &value) && value > 0) GamepadReport->Buttons1 |= (1 << 0);
-        if (!SBus_GetChannel(9, &value) && value > 0) GamepadReport->Buttons1 |= (1 << 1);
-        if (!SBus_GetChannel(10, &value) && value > 0) GamepadReport->Buttons1 |= (1 << 2);
-        if (!SBus_GetChannel(11, &value) && value > 0) GamepadReport->Buttons1 |= (1 << 3);
-        if (!SBus_GetChannel(12, &value) && value > 0) GamepadReport->Buttons1 |= (1 << 4);
-        if (!SBus_GetChannel(13, &value) && value > 0) GamepadReport->Buttons1 |= (1 << 5);
-        if (!SBus_GetChannel(14, &value) && value > 0) GamepadReport->Buttons1 |= (1 << 6);
-        if (!SBus_GetChannel(15, &value) && value > 0) GamepadReport->Buttons1 |= (1 << 7);
+        if (channel[8] > 0) GamepadReport->Buttons1 |= (1 << 0);
+        if (channel[9] > 0) GamepadReport->Buttons1 |= (1 << 1);
+        if (channel[10] > 0) GamepadReport->Buttons1 |= (1 << 2);
+        if (channel[11] > 0) GamepadReport->Buttons1 |= (1 << 3);
+        if (channel[12] > 0) GamepadReport->Buttons1 |= (1 << 4);
+        if (channel[13] > 0) GamepadReport->Buttons1 |= (1 << 5);
+        if (channel[14] > 0) GamepadReport->Buttons1 |= (1 << 6);
+        if (channel[15] > 0) GamepadReport->Buttons1 |= (1 << 7); // RSSI
 
+        // set report size
         *ReportSize = sizeof (USB_GamepadReport_Data_t);
 
         return false;

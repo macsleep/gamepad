@@ -79,7 +79,7 @@
 
 /* Function Prototypes */
 void SBus_Init(void);
-uint8_t SBus_GetChannel(uint8_t channel, int8_t *value);
+uint8_t SBus_Channel(int8_t *channel, uint8_t num);
 int8_t SBus_Normalize(float x);
 void SBus_Disable(void);
 

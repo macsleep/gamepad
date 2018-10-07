@@ -57,12 +57,14 @@ void SBus_Init(void) {
         TIMSK1 |= (1 << TOIE1); // enable timer interrupt
 }
 
-/** getter for the channel values */
-uint8_t SBus_GetChannel(uint8_t channel, int8_t *value) {
-        if (channel >= CH_BUFFER_SIZE) return -1;
-        *value = SBus_Normalize(ch_buffer[channel]);
+/** the channel values */
+uint8_t SBus_Channel(int8_t *channel, uint8_t num) {
+        uint8_t i;
 
-        return 0;
+        if (num > CH_BUFFER_SIZE) num = CH_BUFFER_SIZE;
+        for (i = 0; i < num; i++) channel[i] = SBus_Normalize(ch_buffer[i]);
+
+        return num;
 }
 
 /** Normalize SBus values */
