@@ -41,7 +41,7 @@ void SBus_Init(void) {
         // set flags
         rx_buffer[SBUS_FLAGS] = (1 << SBUS_FLAG_FRAME_LOST);
 
-        // sbus buffer
+        // channel buffer
         for (i = 0; i < CH_BUFFER_SIZE; i++) ch_buffer[i] = CENTER_POSITION;
 
         // UART
@@ -57,7 +57,7 @@ void SBus_Init(void) {
         TIMSK1 |= (1 << TOIE1); // enable timer interrupt
 }
 
-/** the channel values */
+/** Channel Values */
 uint8_t SBus_Channel(int8_t *channel, uint8_t num) {
         uint8_t i;
 
