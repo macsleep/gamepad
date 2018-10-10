@@ -46,14 +46,14 @@ void SBus_Init(void) {
 
         // UART
         UBRR1 = SBUS_BAUD;
-        UCSR1B = (1 << RXEN1) | (1 << RXCIE1); // enable receiver, interrupt
         UCSR1C = (1 << UCSZ11) | (1 << UCSZ10) | (1 << UPM11); // 8 bit, even parity
+        UCSR1B = (1 << RXEN1) | (1 << RXCIE1); // enable receiver, interrupt
 
         // Timer1
         TCCR1A = 0; // no pwm
         TCCR1B = (1 << CS11); // prescaler 8
         TCNT1 = 0; // start value
-        TIMSK1 |= (1 << TOIE1); // enable timer interrupt
+        TIMSK1 |= (1 << TOIE1); // enable interrupt
 }
 
 /** Channel Values */
