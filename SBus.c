@@ -51,9 +51,8 @@ void SBus_Init(void) {
 
         // Timer1
         TCCR1A = 0; // no pwm
-        TCCR1B = 0; // no clock for prescaler
+        TCCR1B = (1 << CS11); // prescaler 8
         TCNT1 = 0; // start value
-        TCCR1B |= (1 << CS11); // prescaler 8
         TIMSK1 |= (1 << TOIE1); // enable timer interrupt
 }
 
