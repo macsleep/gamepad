@@ -37,7 +37,7 @@
  */
 
 // range for sbus values (min:0, max:2047)
-#define X1 175.0
+#define X1 180.0
 #define X2 1810.0
 
 // range for usb values
