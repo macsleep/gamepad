@@ -123,5 +123,8 @@ ISR(TIMER1_OVF_vect) {
                 ch_buffer[ch_base + 6] = (rx_buffer[rx_base + 8] >> 2 | rx_buffer[rx_base + 9] << 6) & 0x07ff;
                 ch_buffer[ch_base + 7] = (rx_buffer[rx_base + 9] >> 5 | rx_buffer[rx_base + 10] << 3) & 0x07ff;
         }
+
+        // mark packet as read
+        rx_buffer[SBUS_FLAGS] |= (1 << SBUS_FLAG_FRAME_LOST);
 }
 
