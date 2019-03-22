@@ -110,7 +110,7 @@ ISR(TIMER1_OVF_vect) {
         if (rx_buffer[SBUS_FLAGS] & (1 << SBUS_FLAG_FRAME_LOST)) return;
 
         // save sbus channels
-        for (i = 0; i < (CH_BUFFER_SIZE / 8); i++) {
+        for (i = 0; i < CH_BUFFER_OCTETS; i++) {
                 ch_base = (i * 8);
                 rx_base = 1 + (i * 11);
 
