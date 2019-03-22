@@ -36,63 +36,63 @@ static volatile uint16_t ch_buffer[CH_BUFFER_SIZE];
 
 /** Initialize UART */
 void SBus_Init(void) {
-        uint8_t i;
+    uint8_t i;
 
-        // set flags
-        rx_buffer[SBUS_FLAGS] = (1 << SBUS_FLAG_FRAME_LOST);
+    // set flags
+    rx_buffer[SBUS_FLAGS] = (1 << SBUS_FLAG_FRAME_LOST);
 
-        // channel buffer
-        for (i = 0; i < CH_BUFFER_SIZE; i++) ch_buffer[i] = CENTER_POSITION;
+    // channel buffer
+    for (i = 0; i < CH_BUFFER_SIZE; i++) ch_buffer[i] = CENTER_POSITION;
 
-        // UART
-        UBRR1 = SBUS_BAUD;
-        UCSR1C = (1 << UCSZ11) | (1 << UCSZ10) | (1 << UPM11); // 8 bit, even parity
-        UCSR1B = (1 << RXEN1) | (1 << RXCIE1); // enable receiver, interrupt
+    // UART
+    UBRR1 = SBUS_BAUD;
+    UCSR1C = (1 << UCSZ11) | (1 << UCSZ10) | (1 << UPM11); // 8 bit, even parity
+    UCSR1B = (1 << RXEN1) | (1 << RXCIE1); // enable receiver, interrupt
 
-        // Timer1
-        TCCR1A = 0; // no pwm
-        TCCR1B = (1 << CS11); // prescaler 8
-        TCNT1 = 0; // start value
-        TIMSK1 |= (1 << TOIE1); // enable interrupt
+    // Timer1
+    TCCR1A = 0; // no pwm
+    TCCR1B = (1 << CS11); // prescaler 8
+    TCNT1 = 0; // start value
+    TIMSK1 |= (1 << TOIE1); // enable interrupt
 }
 
 /** Channel Values */
 uint8_t SBus_Channel(int8_t *channel, uint8_t num) {
-        uint8_t i;
+    uint8_t i;
 
-        if (num > CH_BUFFER_SIZE) num = CH_BUFFER_SIZE;
-        for (i = 0; i < num; i++) channel[i] = SBus_Normalize(ch_buffer[i]);
+    if (num > CH_BUFFER_SIZE) num = CH_BUFFER_SIZE;
+    for (i = 0; i < num; i++) channel[i] = SBus_Normalize(ch_buffer[i]);
 
-        return num;
+    return num;
 }
 
 /** Normalize SBus values */
 int8_t SBus_Normalize(float x) {
-        float y;
+    float y;
 
-        y = M * x + B;
-        if (y < Y1) y = Y1;
-        if (y > Y2) y = Y2;
+    y = M * x + B;
+    if (y < Y1) y = Y1;
+    if (y > Y2) y = Y2;
 
-        return y;
+    return y;
 }
 
 /** Disable UART & Timer */
 void SBus_Disable(void) {
-        UCSR1B &= ~((1 << RXEN1) | (1 << RXCIE1));
-        TIMSK1 &= ~(1 << TOIE1);
+    UCSR1B &= ~((1 << RXEN1) | (1 << RXCIE1));
+    TIMSK1 &= ~(1 << TOIE1);
 }
 
 /** Receive Interrupt */
 ISR(USART1_RX_vect) {
-        uint8_t c, i;
+    uint8_t c, i;
 
-        c = UDR1;
-        i = rx_buffer_head;
-        TCNT1 = TIMER1_INIT_COUNT; // reset timer
-        rx_buffer[i++] = c;
-        if (i >= RX_BUFFER_SIZE) i = 0;
-        rx_buffer_head = i;
+    c = UDR1;
+    i = rx_buffer_head;
+    TCNT1 = TIMER1_INIT_COUNT; // reset timer
+    rx_buffer[i++] = c;
+    if (i >= RX_BUFFER_SIZE) i = 0;
+    rx_buffer_head = i;
 }
 
 /** Timer Interrupt
@@ -101,30 +101,30 @@ ISR(USART1_RX_vect) {
  *  header or trailer in the data.
  */
 ISR(TIMER1_OVF_vect) {
-        uint8_t i, ch_base, rx_base;
+    uint8_t i, ch_base, rx_base;
 
-        // sync to sbus header
-        rx_buffer_head = 0;
+    // sync to sbus header
+    rx_buffer_head = 0;
 
-        // frame lost
-        if (rx_buffer[SBUS_FLAGS] & (1 << SBUS_FLAG_FRAME_LOST)) return;
+    // frame lost
+    if (rx_buffer[SBUS_FLAGS] & (1 << SBUS_FLAG_FRAME_LOST)) return;
 
-        // save sbus channels
-        for (i = 0; i < CH_BUFFER_OCTETS; i++) {
-                ch_base = (i * 8);
-                rx_base = 1 + (i * 11);
+    // save sbus channels
+    for (i = 0; i < CH_BUFFER_OCTETS; i++) {
+        ch_base = (i * 8);
+        rx_base = 1 + (i * 11);
 
-                ch_buffer[ch_base + 0] = (rx_buffer[rx_base + 0] | rx_buffer[rx_base + 1] << 8) & 0x07ff;
-                ch_buffer[ch_base + 1] = (rx_buffer[rx_base + 1] >> 3 | rx_buffer[rx_base + 2] << 5) & 0x07ff;
-                ch_buffer[ch_base + 2] = (rx_buffer[rx_base + 2] >> 6 | rx_buffer[rx_base + 3] << 2 | rx_buffer[rx_base + 4] << 10) & 0x07ff;
-                ch_buffer[ch_base + 3] = (rx_buffer[rx_base + 4] >> 1 | rx_buffer[rx_base + 5] << 7) & 0x07ff;
-                ch_buffer[ch_base + 4] = (rx_buffer[rx_base + 5] >> 4 | rx_buffer[rx_base + 6] << 4) & 0x07ff;
-                ch_buffer[ch_base + 5] = (rx_buffer[rx_base + 6] >> 7 | rx_buffer[rx_base + 7] << 1 | rx_buffer[rx_base + 8] << 9) & 0x07ff;
-                ch_buffer[ch_base + 6] = (rx_buffer[rx_base + 8] >> 2 | rx_buffer[rx_base + 9] << 6) & 0x07ff;
-                ch_buffer[ch_base + 7] = (rx_buffer[rx_base + 9] >> 5 | rx_buffer[rx_base + 10] << 3) & 0x07ff;
-        }
+        ch_buffer[ch_base + 0] = (rx_buffer[rx_base + 0] | rx_buffer[rx_base + 1] << 8) & 0x07ff;
+        ch_buffer[ch_base + 1] = (rx_buffer[rx_base + 1] >> 3 | rx_buffer[rx_base + 2] << 5) & 0x07ff;
+        ch_buffer[ch_base + 2] = (rx_buffer[rx_base + 2] >> 6 | rx_buffer[rx_base + 3] << 2 | rx_buffer[rx_base + 4] << 10) & 0x07ff;
+        ch_buffer[ch_base + 3] = (rx_buffer[rx_base + 4] >> 1 | rx_buffer[rx_base + 5] << 7) & 0x07ff;
+        ch_buffer[ch_base + 4] = (rx_buffer[rx_base + 5] >> 4 | rx_buffer[rx_base + 6] << 4) & 0x07ff;
+        ch_buffer[ch_base + 5] = (rx_buffer[rx_base + 6] >> 7 | rx_buffer[rx_base + 7] << 1 | rx_buffer[rx_base + 8] << 9) & 0x07ff;
+        ch_buffer[ch_base + 6] = (rx_buffer[rx_base + 8] >> 2 | rx_buffer[rx_base + 9] << 6) & 0x07ff;
+        ch_buffer[ch_base + 7] = (rx_buffer[rx_base + 9] >> 5 | rx_buffer[rx_base + 10] << 3) & 0x07ff;
+    }
 
-        // mark packet as read
-        rx_buffer[SBUS_FLAGS] |= (1 << SBUS_FLAG_FRAME_LOST);
+    // mark packet as read
+    rx_buffer[SBUS_FLAGS] |= (1 << SBUS_FLAG_FRAME_LOST);
 }
 
