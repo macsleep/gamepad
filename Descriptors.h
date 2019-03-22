@@ -41,12 +41,12 @@
  *  vary between devices, and which describe the device's usage to the host.
  */
 typedef struct {
-        USB_Descriptor_Configuration_Header_t Config;
+    USB_Descriptor_Configuration_Header_t Config;
 
-        // Gamepad HID Interface
-        USB_Descriptor_Interface_t HID_Interface;
-        USB_HID_Descriptor_HID_t HID_GamepadHID;
-        USB_Descriptor_Endpoint_t HID_ReportINEndpoint;
+    // Gamepad HID Interface
+    USB_Descriptor_Interface_t HID_Interface;
+    USB_HID_Descriptor_HID_t HID_GamepadHID;
+    USB_Descriptor_Endpoint_t HID_ReportINEndpoint;
 } USB_Descriptor_Configuration_t;
 
 /** Enum for the device interface descriptor IDs within the device. Each interface descriptor
@@ -54,7 +54,7 @@ typedef struct {
  *  interface from other descriptors.
  */
 enum InterfaceDescriptors_t {
-        INTERFACE_ID_Gamepad = 0, /**< Gamepad interface desciptor ID */
+    INTERFACE_ID_Gamepad = 0, /**< Gamepad interface desciptor ID */
 };
 
 /** Enum for the device string descriptor IDs within the device. Each string descriptor should
@@ -62,9 +62,9 @@ enum InterfaceDescriptors_t {
  *  other descriptors.
  */
 enum StringDescriptors_t {
-        STRING_ID_Language = 0, /**< Supported Languages string descriptor ID (must be zero) */
-        STRING_ID_Manufacturer = 1, /**< Manufacturer string ID */
-        STRING_ID_Product = 2, /**< Product string ID */
+    STRING_ID_Language = 0, /**< Supported Languages string descriptor ID (must be zero) */
+    STRING_ID_Manufacturer = 1, /**< Manufacturer string ID */
+    STRING_ID_Product = 2, /**< Product string ID */
 };
 
 /* Macros: */

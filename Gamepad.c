@@ -37,79 +37,79 @@ static uint8_t PrevGamepadHIDReportBuffer[sizeof (USB_GamepadReport_Data_t)];
  *  within a device can be differentiated from one another.
  */
 USB_ClassInfo_HID_Device_t Gamepad_HID_Interface = {
-        .Config =
+    .Config =
+    {
+        .InterfaceNumber = INTERFACE_ID_Gamepad,
+        .ReportINEndpoint =
         {
-                .InterfaceNumber = INTERFACE_ID_Gamepad,
-                .ReportINEndpoint =
-                {
-                        .Address = GAMEPAD_EPADDR,
-                        .Size = GAMEPAD_EPSIZE,
-                        .Banks = 1,
-                },
-                .PrevReportINBuffer = PrevGamepadHIDReportBuffer,
-                .PrevReportINBufferSize = sizeof (PrevGamepadHIDReportBuffer),
+            .Address = GAMEPAD_EPADDR,
+            .Size = GAMEPAD_EPSIZE,
+            .Banks = 1,
         },
+        .PrevReportINBuffer = PrevGamepadHIDReportBuffer,
+        .PrevReportINBufferSize = sizeof (PrevGamepadHIDReportBuffer),
+    },
 };
 
 /** Main program entry point. This routine contains the overall program flow, including initial
  *  setup of all components and the main program loop.
  */
 int main(void) {
-        SetupHardware();
+    SetupHardware();
 
-        LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
-        GlobalInterruptEnable();
+    LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
+    GlobalInterruptEnable();
 
-        for (;;) {
-                HID_Device_USBTask(&Gamepad_HID_Interface);
-                USB_USBTask();
-        }
+    for (;;) {
+        HID_Device_USBTask(&Gamepad_HID_Interface);
+        USB_USBTask();
+    }
 }
 
 /** Configures the board hardware and chip peripherals for the demo's functionality. */
 void SetupHardware(void) {
-        /* Disable watchdog if enabled by bootloader/fuses */
-        MCUSR &= ~(1 << WDRF);
-        wdt_disable();
+    /* Disable watchdog if enabled by bootloader/fuses */
+    MCUSR &= ~(1 << WDRF);
+    wdt_disable();
 
-        /* Disable clock division */
-        clock_prescale_set(clock_div_1);
+    /* Disable clock division */
+    clock_prescale_set(clock_div_1);
 
-        /* Hardware Initialization */
-        SBus_Init();
-        LEDs_Init();
-        USB_Init();
+    /* Hardware Initialization */
+    SBus_Init();
+    LEDs_Init();
+    USB_Init();
 }
 
 /** Event handler for the library USB Connection event. */
 void EVENT_USB_Device_Connect(void) {
-        LEDs_SetAllLEDs(LEDMASK_USB_ENUMERATING);
+    LEDs_SetAllLEDs(LEDMASK_USB_ENUMERATING);
 }
 
 /** Event handler for the library USB Disconnection event. */
 void EVENT_USB_Device_Disconnect(void) {
-        LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
+    LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
 }
 
 /** Event handler for the library USB Configuration Changed event. */
 void EVENT_USB_Device_ConfigurationChanged(void) {
-        bool ConfigSuccess = true;
+    bool ConfigSuccess = true;
 
-        ConfigSuccess &= HID_Device_ConfigureEndpoints(&Gamepad_HID_Interface);
+    ConfigSuccess &= HID_Device_ConfigureEndpoints(&Gamepad_HID_Interface);
 
-        USB_Device_EnableSOFEvents();
+    USB_Device_EnableSOFEvents();
 
-        LEDs_SetAllLEDs(ConfigSuccess ? LEDMASK_USB_READY : LEDMASK_USB_ERROR);
+    LEDs_SetAllLEDs(ConfigSuccess ? LEDMASK_USB_READY : LEDMASK_USB_ERROR);
 }
 
 /** Event handler for the library USB Control Request reception event. */
 void EVENT_USB_Device_ControlRequest(void) {
-        HID_Device_ProcessControlRequest(&Gamepad_HID_Interface);
+    HID_Device_ProcessControlRequest(&Gamepad_HID_Interface);
 }
 
 /** Event handler for the USB device Start Of Frame event. */
 void EVENT_USB_Device_StartOfFrame(void) {
-        HID_Device_MillisecondElapsed(&Gamepad_HID_Interface);
+    HID_Device_MillisecondElapsed(&Gamepad_HID_Interface);
 }
 
 /** HID class driver callback function for the creation of HID reports to the host.
@@ -127,37 +127,37 @@ bool CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_Device_t * const HIDI
         const uint8_t ReportType,
         void* ReportData,
         uint16_t * const ReportSize) {
-        int8_t channel[16];
-        USB_GamepadReport_Data_t* GamepadReport = (USB_GamepadReport_Data_t*) ReportData;
+    int8_t channel[16];
+    USB_GamepadReport_Data_t* GamepadReport = (USB_GamepadReport_Data_t*) ReportData;
 
-        // get channels
-        SBus_Channel(channel, sizeof (channel));
+    // get channels
+    SBus_Channel(channel, sizeof (channel));
 
-        // analog values
-        GamepadReport->X = channel[0];
-        GamepadReport->Y = channel[1];
-        GamepadReport->Z = channel[2];
-        GamepadReport->Rx = channel[3];
-        GamepadReport->Ry = channel[4];
-        GamepadReport->Rz = channel[5];
-        GamepadReport->S1 = channel[6];
-        GamepadReport->S2 = channel[7];
+    // analog values
+    GamepadReport->X = channel[0];
+    GamepadReport->Y = channel[1];
+    GamepadReport->Z = channel[2];
+    GamepadReport->Rx = channel[3];
+    GamepadReport->Ry = channel[4];
+    GamepadReport->Rz = channel[5];
+    GamepadReport->S1 = channel[6];
+    GamepadReport->S2 = channel[7];
 
-        // button values
-        GamepadReport->Buttons1 = 0;
-        if (channel[8] > 0) GamepadReport->Buttons1 |= (1 << 0);
-        if (channel[9] > 0) GamepadReport->Buttons1 |= (1 << 1);
-        if (channel[10] > 0) GamepadReport->Buttons1 |= (1 << 2);
-        if (channel[11] > 0) GamepadReport->Buttons1 |= (1 << 3);
-        if (channel[12] > 0) GamepadReport->Buttons1 |= (1 << 4);
-        if (channel[13] > 0) GamepadReport->Buttons1 |= (1 << 5);
-        if (channel[14] > 0) GamepadReport->Buttons1 |= (1 << 6);
-        if (channel[15] > 0) GamepadReport->Buttons1 |= (1 << 7); // RSSI
+    // button values
+    GamepadReport->Buttons1 = 0;
+    if (channel[8] > 0) GamepadReport->Buttons1 |= (1 << 0);
+    if (channel[9] > 0) GamepadReport->Buttons1 |= (1 << 1);
+    if (channel[10] > 0) GamepadReport->Buttons1 |= (1 << 2);
+    if (channel[11] > 0) GamepadReport->Buttons1 |= (1 << 3);
+    if (channel[12] > 0) GamepadReport->Buttons1 |= (1 << 4);
+    if (channel[13] > 0) GamepadReport->Buttons1 |= (1 << 5);
+    if (channel[14] > 0) GamepadReport->Buttons1 |= (1 << 6);
+    if (channel[15] > 0) GamepadReport->Buttons1 |= (1 << 7); // RSSI
 
-        // set report size
-        *ReportSize = sizeof (USB_GamepadReport_Data_t);
+    // set report size
+    *ReportSize = sizeof (USB_GamepadReport_Data_t);
 
-        return false;
+    return false;
 }
 
 /** HID class driver callback function for the processing of HID reports from the host.
@@ -173,6 +173,6 @@ void CALLBACK_HID_Device_ProcessHIDReport(USB_ClassInfo_HID_Device_t * const HID
         const uint8_t ReportType,
         const void* ReportData,
         const uint16_t ReportSize) {
-        // Unused (but mandatory for the HID class driver) in this demo, since there are no Host->Device reports
+    // Unused (but mandatory for the HID class driver) in this demo, since there are no Host->Device reports
 }
 

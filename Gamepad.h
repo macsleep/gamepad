@@ -49,15 +49,15 @@
  *  This mirrors the layout described to the host in the HID report descriptor, in Descriptors.c.
  */
 typedef struct {
-        uint8_t X; // analog value, mapped to channel 1
-        uint8_t Y; // analog value, mapped to channel 2
-        uint8_t Z; // analog value, mapped to channel 3
-        uint8_t Rx; // analog value, mapped to channel 4
-        uint8_t Ry; // analog value, mapped to channel 5
-        uint8_t Rz; // analog value, mapped to channel 6
-        uint8_t S1; // analog value, mapped to channel 7
-        uint8_t S2; // analog value, mapped to channel 8
-        uint8_t Buttons1; // mapped to channels 9-16, on if channel > 0
+    uint8_t X; // analog value, mapped to channel 1
+    uint8_t Y; // analog value, mapped to channel 2
+    uint8_t Z; // analog value, mapped to channel 3
+    uint8_t Rx; // analog value, mapped to channel 4
+    uint8_t Ry; // analog value, mapped to channel 5
+    uint8_t Rz; // analog value, mapped to channel 6
+    uint8_t S1; // analog value, mapped to channel 7
+    uint8_t S2; // analog value, mapped to channel 8
+    uint8_t Buttons1; // mapped to channels 9-16, on if channel > 0
 } USB_GamepadReport_Data_t;
 
 /* Macros: */
