@@ -51,8 +51,12 @@
 // rx_buffer default value
 #define CENTER_POSITION X1+(X2-X1)/2
 
-// rx buffer sizes
-#define RX_BUFFER_SIZE 64
+// channel buffer size
+#define CH_BUFFER_OCTETS 2
+#define CH_BUFFER_SIZE CH_BUFFER_OCTETS*8
+
+// rx buffer size
+#define RX_BUFFER_SIZE 11*CH_BUFFER_OCTETS+3
 
 // sbus macros
 
@@ -64,13 +68,9 @@
  */
 #define SBUS_BAUD F_CPU/16/100000-1
 
-#define SBUS_FLAGS 23
+#define SBUS_FLAGS 11*CH_BUFFER_OCTETS+1
 #define SBUS_FLAG_FRAME_LOST 2
 #define SBUS_FLAG_FAILSAVE_ACTIVATED 3
-
-// channel buffer 
-#define CH_BUFFER_OCTETS 2
-#define CH_BUFFER_SIZE CH_BUFFER_OCTETS*8
 
 /** At 100000 baud a bit takes 10 us time. A byte is made up of 12 bits
  *  (1 start bit, 8 data bits, 1 bit even parity and 2 stop bits). This
