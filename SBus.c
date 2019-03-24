@@ -111,8 +111,8 @@ ISR(TIMER1_OVF_vect) {
 
     // save sbus channels
     for (i = 0; i < CH_BUFFER_OCTETS; i++) {
-        ch_base = (i * 8);
-        rx_base = 1 + (i * 11);
+        ch_base = i * 8;
+        rx_base = i * 11 + 1;
 
         ch_buffer[ch_base + 0] = (rx_buffer[rx_base + 0] | rx_buffer[rx_base + 1] << 8) & 0x07ff;
         ch_buffer[ch_base + 1] = (rx_buffer[rx_base + 1] >> 3 | rx_buffer[rx_base + 2] << 5) & 0x07ff;
