@@ -58,8 +58,6 @@
 // rx buffer size
 #define RX_BUFFER_SIZE CH_BUFFER_OCTETS*11+3
 
-// sbus macros
-
 /** The UART currently operates without the U2X1 bit set in UCSR1A.
  *  The U2X1 bit reduces the divisor for the UART clock from 16 to 8
  *  making higher baud rates possible. The drawback of using the U2X1
@@ -68,6 +66,7 @@
  */
 #define SBUS_BAUD F_CPU/16/100000-1
 
+// sbus macros
 #define SBUS_FLAGS CH_BUFFER_OCTETS*11+1
 #define SBUS_FLAG_FRAME_LOST 2
 #define SBUS_FLAG_FAILSAVE_ACTIVATED 3
