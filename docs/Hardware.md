@@ -4,9 +4,11 @@ Below you can see the schematic of the hardware. I initially used a NPN transist
 
 ![schematic](images/Schematic.png)
 
+This is the parts list:
+
 ![parts](images/Parts.png)
 
-You can easily plug the hardware using a breadboard. The pinout of the 2N7000 looking at the flat front (pins down) is source, gate, drain (from left to right). And the pinout of the XM receiver looking at the front with the bind button (antenna up) is sbus signal, 5 Volts, ground (also from left to right).
+And for testing you can easily plug the hardware using a breadboard:
 
 ![breadboard](images/Breadboard.jpeg)
 
