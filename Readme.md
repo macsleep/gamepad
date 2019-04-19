@@ -12,11 +12,11 @@ Ever wanted to use a FrSky Taranis wirelessly with PC simulators like [FPVFreeri
 	* available here: [Reichelt](https://www.reichelt.de/) 	
 ## Software
 * AVR 8-bit gcc tool chain
-	* available here: [Microchip](http://www.microchip.com/) 
+	* available here: [Microchip](http://www.microchip.com/), [gcc tool chains](https://www.microchip.com/mplab/avr-support/avr-and-arm-toolchains-c-compilers)
 * HalfKey Loader teensy_loader_cli
-	* available here: [PJRC](https://www.pjrc.com/)
+	* available here: [PJRC](https://www.pjrc.com/), [teensy_loader_cli](https://www.pjrc.com/teensy/loader_cli.html)
 * Dean Camera's excellent **L**ightweight **U**SB **F**ramework for **A**VRs (LUFA)
-	* available here: [Four Walled Cubicle](http://www.fourwalledcubicle.com/) 
+	* available here: [Four Walled Cubicle](http://www.fourwalledcubicle.com/), [LUFA](http://www.fourwalledcubicle.com/LUFA.php)
 
 ## Build
 * clone or download the firmware
