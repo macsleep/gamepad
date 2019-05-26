@@ -6,7 +6,7 @@ A nice way to check the sbus gamepad values is the [HTML5 Gamepad Tester](http:/
 
 ![image](images/HTML5Gamepad.png)
 
-Shoud you need to adjust the range of the sbus values sent by your transmitter please edit the X1, X2 macros in the SBus.h file and rebuild.
+Shoud you need to adjust the range of the sbus values sent by your transmitter please edit the X1, X2 macros in the SBus.h file and rebuild. Remember to calibrate your transmitter first.
 
 Be aware that depending on the firmware the XM receiver sends the **R**adio **S**ignal **S**trength **I**ndicator (RSSI) in channel 16 to the Teensy. Because of this the last button (B7) is "on".
 
