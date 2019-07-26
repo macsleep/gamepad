@@ -9,7 +9,7 @@ Ever wanted to use a FrSky Taranis wirelessly with PC simulators like [FPVFreeri
 * FrSky XM Receiver
 	* available here: [FrSky](https://www.frsky-rc.com/), [XM Receiver](https://www.frsky-rc.com/product/xm-1g-sbus-non-telemetry/)
 * A transistor & resistor to invert the sbus signal for the Teensy
-	* available here: [Reichelt](https://www.reichelt.de/), [2N700](https://www.reichelt.de/mosfet-n-ch-60v-0-115a-0-4w-to-92-2n-7000-p41141.html), [10K Resistor](https://www.reichelt.de/widerstand-metallschicht-10-0-kohm-0207-0-6-w-1-metall-10-0k-p11449.html)	
+	* available here: [Reichelt](https://www.reichelt.de/), [2N7000](https://www.reichelt.de/mosfet-n-ch-60v-0-115a-0-4w-to-92-2n-7000-p41141.html), [10K Resistor](https://www.reichelt.de/widerstand-metallschicht-10-0-kohm-0207-0-6-w-1-metall-10-0k-p11449.html)	
 ## Software
 * AVR 8-bit gcc tool chain
 	* available here: [Microchip](http://www.microchip.com/), [gcc tool chains](https://www.microchip.com/mplab/avr-support/avr-and-arm-toolchains-c-compilers)
