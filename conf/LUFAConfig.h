@@ -81,7 +81,7 @@
 /* USB Host Mode Driver Related Tokens: */
 //		#define HOST_STATE_AS_GPIOR              {Insert Value Here}
 //		#define USB_HOST_TIMEOUT_MS              {Insert Value Here}
-//		#define HOST_DEVICE_SETTLE_DELAY_MS	     {Insert Value Here}
+//		#define HOST_DEVICE_SETTLE_DELAY_MS	 {Insert Value Here}
 //		#define NO_AUTO_VBUS_MANAGEMENT
 //		#define INVERTED_VBUS_ENABLE_LINE
 
