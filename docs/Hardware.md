@@ -12,8 +12,12 @@ This is the parts list:
 
 ![parts](images/Parts.jpeg)
 
-And you can easily plug the hardware using a breadboard:
+You can easily plug the hardware using a breadboard:
 
 ![breadboard](images/Breadboard.jpeg)
+
+And this is the finished dongle I use:
+
+![dongle](images/Dongle.jpeg)
 
 Date: 2018-09-23
