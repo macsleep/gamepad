@@ -11,8 +11,8 @@ Ever wanted to use a FrSky Taranis wirelessly with PC simulators like [FPVFreeri
 * A transistor & resistor to invert the sbus signal for the Teensy
 	* available here: [Reichelt](https://www.reichelt.de/), [2N7000](https://www.reichelt.de/mosfet-n-ch-60v-0-115a-0-4w-to-92-2n-7000-p41141.html), [10K Resistor](https://www.reichelt.de/widerstand-metallschicht-10-0-kohm-0207-0-6-w-1-metall-10-0k-p11449.html)	
 ## Software
-* AVR 8-bit gcc tool chain
-	* available here: [Microchip](http://www.microchip.com/), [gcc tool chains](https://www.microchip.com/mplab/avr-support/avr-and-arm-toolchains-c-compilers)
+* AVR 8-bit gcc toolchain
+	* available here: [Microchip](http://www.microchip.com/), [gcc toolchains](https://www.microchip.com/mplab/avr-support/avr-and-arm-toolchains-c-compilers)
 * HalfKey Loader teensy_loader_cli
 	* available here: [PJRC](https://www.pjrc.com/), [teensy_loader_cli](https://www.pjrc.com/teensy/loader_cli.html)
 * Dean Camera's excellent **L**ightweight **U**SB **F**ramework for **A**VRs (LUFA)
