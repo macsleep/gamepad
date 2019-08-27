@@ -29,7 +29,7 @@ Ever wanted to use a FrSky Taranis wirelessly with PC simulators like [FPVFreeri
 If you don't want to build the software yourself just download the Gamepad.hex.save file and load it onto the Teensy using: `teensy_loader_cli --mcu=atmega32u4 -w -v Gamepad.hex.save`
 
 ## Usage
-Create a new model for the sbus gamepad on your transmitter. Make sure that you enable at least 4 channels (e.g. ailerons, elevator, throttle and rudder) for the receiver. Bind the receiver like you normally would. Use software like [HTML5 Gamepad Tester](http://html5gamepad.com/) to test the sbus gamepad. Once you have confirmed operation start your favorite simulator and see if it recognizes the sbus gamepad.
+Create a new model for the sbus gamepad on your transmitter. Make sure that you enable at least 4 channels (e.g. ailerons, elevator, throttle and rudder) for the receiver. Bind the receiver like you normally would. Use software like [HTML5 Gamepad Tester](http://html5gamepad.com/) to test the sbus gamepad. Once you have confirmed operation start your favorite simulator and enjoy.
 
 Date: 2018-09-21
 
