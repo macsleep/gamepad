@@ -1,7 +1,7 @@
 # SBus Gamepad
 
 ## Description
-Ever wanted to use a FrSky Taranis wirelessly with PC simulators like [FPVFreerider](https://fpv-freerider.itch.io/) or [RC-Airsim](http://www.fabricated-reality.com/)? This project will help you do so. The idea was to use a Teensy 2.0 USB controller and pair it with a FrSky XM receiver. The Teensy on one side will provide a USB HID gamepad to the host computer while on the other it will read the sbus protocol off the receiver using the **U**niversal **A**synchronous **R**eceiver **T**ransmitter (UART). To read the sbus signal an inverter in form of a simple transistor will be needed between the Teensy and the receiver. For more details please see the docs directory.
+Ever wanted to use a FrSky Taranis wirelessly with PC simulators like [FPVFreerider](https://fpv-freerider.itch.io/) or [RC-AirSim](http://www.fabricated-reality.com/)? This project will help you do so. The idea was to use a Teensy 2.0 USB controller and pair it with a FrSky XM receiver. The Teensy on one side will provide a USB HID gamepad to the host computer while on the other it will read the sbus protocol off the receiver using the **U**niversal **A**synchronous **R**eceiver **T**ransmitter (UART). To read the sbus signal an inverter in form of a simple transistor will be needed between the Teensy and the receiver. For more details please see the docs directory.
 
 ## Hardware
 * Teensy 2.0
