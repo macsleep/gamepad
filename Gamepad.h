@@ -57,7 +57,7 @@ typedef struct {
     uint8_t Rz; // analog value, mapped to channel 6
     uint8_t S1; // analog value, mapped to channel 7
     uint8_t S2; // analog value, mapped to channel 8
-    uint8_t Buttons1; // mapped to channels 9-16, on if channel > 0
+    uint8_t Buttons1; // mapped to channels 9-16
 } USB_GamepadReport_Data_t;
 
 /* Macros: */

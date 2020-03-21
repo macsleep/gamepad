@@ -42,7 +42,7 @@ void SBus_Init(void) {
     rx_buffer[SBUS_FLAGS] = (1 << SBUS_FLAG_FRAME_LOST);
 
     // channel buffer
-    for (i = 0; i < CH_BUFFER_SIZE; i++) ch_buffer[i] = CENTER_POSITION;
+    for (i = 0; i < CH_BUFFER_SIZE; i++) ch_buffer[i] = HALF_POSITION;
 
     // UART
     UBRR1 = SBUS_BAUD;
@@ -57,13 +57,8 @@ void SBus_Init(void) {
 }
 
 /** Channel Values */
-uint8_t SBus_Channel(int8_t *channel, uint8_t num) {
-    uint8_t i;
-
-    if (num > CH_BUFFER_SIZE) num = CH_BUFFER_SIZE;
-    for (i = 0; i < num; i++) channel[i] = SBus_Normalize(ch_buffer[i]);
-
-    return num;
+uint16_t SBus_Channel(uint8_t num) {
+    return (num < CH_BUFFER_SIZE) ? ch_buffer[num] : HALF_POSITION;
 }
 
 /** Normalize SBus values */

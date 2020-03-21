@@ -37,26 +37,30 @@
  */
 
 // range for sbus values (min:0, max:2047)
-#define X1 180.0
-#define X2 1800.0
+#define X1 173.0
+#define X2 1811.0
 
 // range for usb values
 #define Y1 -127.0
 #define Y2 127.0
 
 // values for normalize function
-#define M (Y2-Y1)/(X2-X1)
-#define B Y1-M*X1
+#define M ((Y2-Y1)/(X2-X1))
+#define B (Y1-(M*X1))
 
-// rx_buffer default value
-#define CENTER_POSITION X1+(X2-X1)/2
+// default values
+#define ONE_FOURTH_POSITION (X1+((X2-X1)/4))
+#define ONE_THIRD_POSITION (X1+((X2-X1)/3))
+#define HALF_POSITION (X1+((X2-X1)/2))
+#define TWO_THIRD_POSITION (X1+(((X2-X1)/3)*2))
+#define THREE_FOURTH_POSITION (X1+(((X2-X1)/4)*3))
 
 // channel buffer size
 #define CH_BUFFER_OCTETS 2
-#define CH_BUFFER_SIZE CH_BUFFER_OCTETS*8
+#define CH_BUFFER_SIZE (CH_BUFFER_OCTETS*8)
 
 // rx buffer size
-#define RX_BUFFER_SIZE CH_BUFFER_OCTETS*11+3
+#define RX_BUFFER_SIZE ((CH_BUFFER_OCTETS*11)+3)
 
 /** The UART currently operates without the U2X1 bit set in UCSR1A.
  *  The U2X1 bit reduces the divisor for the UART clock from 16 to 8
@@ -64,10 +68,10 @@
  *  bit is it also halves the samples taken by the UART. So without
  *  the U2X1 bit set serial operations should be more stable.
  */
-#define SBUS_BAUD F_CPU/16/100000-1
+#define SBUS_BAUD ((F_CPU/16/100000)-1)
 
 // sbus macros
-#define SBUS_FLAGS CH_BUFFER_OCTETS*11+1
+#define SBUS_FLAGS ((CH_BUFFER_OCTETS*11)+1)
 #define SBUS_FLAG_FRAME_LOST 2
 #define SBUS_FLAG_FAILSAVE_ACTIVATED 3
 
@@ -77,11 +81,11 @@
  *  200 us should give the AVR adequate time to reset the timer while
  *  receiving a sbus packet: 16 bit - CPU clock * 200 us / prescaler value
  */
-#define TIMER1_INIT_COUNT 0xffff-F_CPU*0.0002/8
+#define TIMER1_INIT_COUNT (0xffff-(F_CPU*0.0002/8))
 
 /* Function Prototypes */
 void SBus_Init(void);
-uint8_t SBus_Channel(int8_t *channel, uint8_t num);
+uint16_t SBus_Channel(uint8_t num);
 int8_t SBus_Normalize(float x);
 void SBus_Disable(void);
 
