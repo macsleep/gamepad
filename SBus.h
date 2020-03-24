@@ -73,7 +73,7 @@
 // sbus macros
 #define SBUS_FLAGS ((CH_BUFFER_OCTETS*11)+1)
 #define SBUS_FLAG_FRAME_LOST 2
-#define SBUS_FLAG_FAILSAVE_ACTIVATED 3
+#define SBUS_FLAG_FAILSAFE_ACTIVATED 3
 
 /** At 100000 baud a bit takes 10 us time. A byte is made up of 12 bits
  *  (1 start bit, 8 data bits, 1 bit even parity and 2 stop bits). This
