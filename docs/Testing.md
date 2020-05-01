@@ -28,5 +28,7 @@ Data:         96 bytes (3.8% Full)
 (.data + .bss + .noinit)
 ```
 
+If you experience delays in updates from the tramsmitter to the gamepad, e.g. the throttle getting stuck for split seconds, your transmitter might be to close to the XM receiver/gamepad. This is the same problem when trying to bind a receiver for the first time right next to the model and it does not work. Put some more space between the transmitter and the gamepad and this problem will disappear. I e.g. had to move my gamepad dongle from the keyboard USB port to the back of the computer.
+
 Date: 2018-09-22
 
