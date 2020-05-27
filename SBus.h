@@ -78,10 +78,10 @@
 /** At 100000 baud a bit takes 10 us time. A byte is made up of 12 bits
  *  (1 start bit, 8 data bits, 1 bit even parity and 2 stop bits). This
  *  comes to a total of 120 us for each byte sent. Setting the timer to
- *  200 us should give the AVR adequate time to reset the timer while
- *  receiving a sbus packet: 16 bit - CPU clock * 200 us / prescaler value
+ *  240 us should give the AVR adequate time to reset the timer while
+ *  receiving a sbus packet: 16 bit - CPU clock * 240 us / prescaler value
  */
-#define TIMER1_INIT_COUNT (0xffff-(F_CPU*0.0002/8))
+#define TIMER1_INIT_COUNT (0xffff-(F_CPU*0.00024/8))
 
 /* Function Prototypes */
 void SBus_Init(void);
