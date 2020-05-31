@@ -82,14 +82,15 @@ void SBus_Disable(void) {
 ISR(USART1_RX_vect) {
     uint8_t c, i;
 
-    ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
-        c = UDR1;
-        i = rx_buffer_head;
-        TCNT1 = TIMER1_INIT_COUNT; // reset timer
-        rx_buffer[i++] = c;
-        if (i >= RX_BUFFER_SIZE) i = 0;
-        rx_buffer_head = i;
-    }
+    // reset timer
+    TCNT1 = TIMER1_INIT_COUNT;
+
+    // save data
+    c = UDR1;
+    i = rx_buffer_head;
+    rx_buffer[i++] = c;
+    if (i >= RX_BUFFER_SIZE) i = 0;
+    rx_buffer_head = i;
 }
 
 /** Timer Interrupt
