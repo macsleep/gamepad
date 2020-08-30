@@ -31,6 +31,10 @@
 static volatile uint8_t rx_buffer[RX_BUFFER_SIZE];
 static volatile uint8_t rx_buffer_head = 0;
 
+static volatile uint8_t tx_buffer[TX_BUFFER_SIZE];
+static volatile uint8_t tx_buffer_head = 0;
+static volatile uint8_t tx_buffer_tail = 0;
+
 // rc channel values sent by transmitter
 static volatile uint16_t ch_buffer[CH_BUFFER_SIZE];
 
@@ -48,6 +52,9 @@ void SBus_Init(void) {
     UBRR1 = SBUS_BAUD;
     UCSR1C = (1 << UCSZ11) | (1 << UCSZ10) | (1 << UPM11); // 8 bit, even parity
     UCSR1B = (1 << RXEN1) | (1 << RXCIE1); // enable receiver, interrupt
+
+    // debug output
+    UCSR1B |= (1 << TXEN1) | (1 << UDRIE1);
 
     // Timer1
     TCCR1A = 0; // no pwm
@@ -101,6 +108,8 @@ ISR(USART1_RX_vect) {
 ISR(TIMER1_OVF_vect) {
     uint8_t i, ch_base, rx_base;
 
+    uart_debug(rx_buffer_head, rx_buffer[0], rx_buffer[SBUS_FLAGS], rx_buffer[SBUS_FLAGS + 1]);
+
     // sync to sbus header
     rx_buffer_head = 0;
 
@@ -124,5 +133,69 @@ ISR(TIMER1_OVF_vect) {
 
     // mark packet as read
     rx_buffer[SBUS_FLAGS] |= (1 << SBUS_FLAG_FRAME_LOST);
+}
+
+void uart_debug(uint8_t a, uint8_t b, uint8_t c, uint8_t d) {
+    uint8_t tmp, off;
+
+    tmp = (a & 0xf0) >> 4;
+    off = (tmp > 9) ? 55 : 48;
+    uart_tx(tmp + off);
+    tmp = (a & 0x0f);
+    off = (tmp > 9) ? 55 : 48;
+    uart_tx(tmp + off);
+
+    uart_tx(' ');
+
+    tmp = (b & 0xf0) >> 4;
+    off = (tmp > 9) ? 55 : 48;
+    uart_tx(tmp + off);
+    tmp = (b & 0x0f);
+    off = (tmp > 9) ? 55 : 48;
+    uart_tx(tmp + off);
+
+    uart_tx(' ');
+
+    tmp = (c & 0xf0) >> 4;
+    off = (tmp > 9) ? 55 : 48;
+    uart_tx(tmp + off);
+    tmp = (c & 0x0f);
+    off = (tmp > 9) ? 55 : 48;
+    uart_tx(tmp + off);
+
+    uart_tx(' ');
+
+    tmp = (d & 0xf0) >> 4;
+    off = (tmp > 9) ? 55 : 48;
+    uart_tx(tmp + off);
+    tmp = (d & 0x0f);
+    off = (tmp > 9) ? 55 : 48;
+    uart_tx(tmp + off);
+
+    uart_tx('\r');
+    uart_tx('\n');
+}
+
+void uart_tx(uint8_t data) {
+    uint8_t i;
+
+    i = tx_buffer_head + 1;
+    if (i >= TX_BUFFER_SIZE) i = 0;
+    tx_buffer[i] = data;
+    tx_buffer_head = i;
+    UCSR1B |= (1 << UDRIE1);
+}
+
+ISR(USART1_UDRE_vect) {
+    uint8_t i;
+
+    if (tx_buffer_head == tx_buffer_tail) {
+        UCSR1B &= ~(1 << UDRIE1);
+    } else {
+        i = tx_buffer_tail + 1;
+        if (i >= TX_BUFFER_SIZE) i = 0;
+        UDR1 = tx_buffer[i];
+        tx_buffer_tail = i;
+    }
 }
 

@@ -61,6 +61,7 @@
 
 // rx buffer size
 #define RX_BUFFER_SIZE ((CH_BUFFER_OCTETS*11)+3)
+#define TX_BUFFER_SIZE RX_BUFFER_SIZE
 
 /** The UART currently operates without the U2X1 bit set in UCSR1A.
  *  The U2X1 bit reduces the divisor for the UART clock from 16 to 8
@@ -81,13 +82,15 @@
  *  240 us should give the AVR adequate time to reset the timer while
  *  receiving a sbus packet: 16 bit - CPU clock * 240 us / prescaler value
  */
-#define TIMER1_INIT_COUNT (0xffff-(F_CPU*0.00024/8))
+#define TIMER1_INIT_COUNT (0xffff-(F_CPU*0.0002/8))
 
 /* Function Prototypes */
 void SBus_Init(void);
 uint16_t SBus_Channel(uint8_t num);
 int8_t SBus_Normalize(float x);
 void SBus_Disable(void);
+void uart_debug(uint8_t a, uint8_t b, uint8_t c, uint8_t d);
+void uart_tx(uint8_t data);
 
 #endif
 
