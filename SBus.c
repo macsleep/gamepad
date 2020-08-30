@@ -22,7 +22,7 @@
 
 /** \file
  *
- * functions for reading the sbus packets via an inverter into the UART of the teensy
+ * functions for reading the sbus rx_buffers via an inverter into the UART of the teensy
  */
 
 #include "SBus.h"
@@ -40,13 +40,28 @@ static volatile uint16_t ch_buffer[CH_BUFFER_SIZE];
 
 /** Initialize UART */
 void SBus_Init(void) {
-    uint8_t i;
+    uint8_t i, ch_base, rx_base;
 
-    // set flags
-    rx_buffer[SBUS_FLAGS] = (1 << SBUS_FLAG_FRAME_LOST);
-
-    // channel buffer
+    // int channel buffer
     for (i = 0; i < CH_BUFFER_SIZE; i++) ch_buffer[i] = HALF_POSITION;
+
+    // init rx buffer
+    for (i = 0; i < CH_BUFFER_OCTETS; i++) {
+        ch_base = i * 8;
+        rx_base = i * 11 + 1;
+
+        rx_buffer[rx_base + 0] = (uint8_t) (ch_buffer[ch_base + 0] & 0x07ff);
+        rx_buffer[rx_base + 1] = (uint8_t) ((ch_buffer[ch_base + 0] & 0x07ff) >> 8 | (ch_buffer[ch_base + 1] & 0x07ff) << 3);
+        rx_buffer[rx_base + 2] = (uint8_t) ((ch_buffer[ch_base + 1] & 0x07ff) >> 5 | (ch_buffer[ch_base + 2] & 0x07ff) << 6);
+        rx_buffer[rx_base + 3] = (uint8_t) ((ch_buffer[ch_base + 2] & 0x07ff) >> 2);
+        rx_buffer[rx_base + 4] = (uint8_t) ((ch_buffer[ch_base + 2] & 0x07ff) >> 10 | (ch_buffer[ch_base + 3] & 0x07ff) << 1);
+        rx_buffer[rx_base + 5] = (uint8_t) ((ch_buffer[ch_base + 3] & 0x07ff) >> 7 | (ch_buffer[ch_base + 4] & 0x07ff) << 4);
+        rx_buffer[rx_base + 6] = (uint8_t) ((ch_buffer[ch_base + 4] & 0x07ff) >> 4 | (ch_buffer[ch_base + 5] & 0x07ff) << 7);
+        rx_buffer[rx_base + 7] = (uint8_t) ((ch_buffer[ch_base + 5] & 0x07ff) >> 1);
+        rx_buffer[rx_base + 8] = (uint8_t) ((ch_buffer[ch_base + 5] & 0x07ff) >> 9 | (ch_buffer[ch_base + 6] & 0x07ff) << 2);
+        rx_buffer[rx_base + 9] = (uint8_t) ((ch_buffer[ch_base + 6] & 0x07ff) >> 6 | (ch_buffer[ch_base + 7] & 0x07ff) << 5);
+        rx_buffer[rx_base + 10] = (uint8_t) ((ch_buffer[ch_base + 7] & 0x07ff) >> 3);
+    }
 
     // UART
     UBRR1 = SBUS_BAUD;
@@ -108,13 +123,10 @@ ISR(USART1_RX_vect) {
 ISR(TIMER1_OVF_vect) {
     uint8_t i, ch_base, rx_base;
 
-    uart_debug(rx_buffer_head, rx_buffer[0], rx_buffer[SBUS_FLAGS], rx_buffer[SBUS_FLAGS + 1]);
+    uart_debug(rx_buffer_head, rx_buffer[3], rx_buffer[4], rx_buffer[SBUS_FLAGS]);
 
     // sync to sbus header
     rx_buffer_head = 0;
-
-    // frame lost
-    if (rx_buffer[SBUS_FLAGS] & (1 << SBUS_FLAG_FRAME_LOST)) return;
 
     // save sbus channels
     for (i = 0; i < CH_BUFFER_OCTETS; i++) {
@@ -130,9 +142,6 @@ ISR(TIMER1_OVF_vect) {
         ch_buffer[ch_base + 6] = (rx_buffer[rx_base + 8] >> 2 | rx_buffer[rx_base + 9] << 6) & 0x07ff;
         ch_buffer[ch_base + 7] = (rx_buffer[rx_base + 9] >> 5 | rx_buffer[rx_base + 10] << 3) & 0x07ff;
     }
-
-    // mark packet as read
-    rx_buffer[SBUS_FLAGS] |= (1 << SBUS_FLAG_FRAME_LOST);
 }
 
 void uart_debug(uint8_t a, uint8_t b, uint8_t c, uint8_t d) {

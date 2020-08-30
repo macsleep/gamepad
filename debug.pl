@@ -30,6 +30,7 @@ open(FH, '>', $filename) or die $!;
 FH->autoflush(1);
 
 while(<DH>) {
+	print;
 	print FH;
 }
 
