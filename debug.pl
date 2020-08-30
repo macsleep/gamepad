@@ -1,11 +1,6 @@
 #!/usr/bin/perl
 #
-# This script can be used to retrieve the odometer wheel
-# turns and convert them into kilometers/miles the bike
-# has traveled.
-#
-# Edit the default values for the serial port and front
-# wheel size you want to use.
+# script logs UART TX ouput to file debug.txt
 #
 
 use strict;
