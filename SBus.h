@@ -30,7 +30,7 @@
 
 /* Macros: */
 
-/** To get a linear equation from two points in a 2d Cartesian
+/** To get a linear equation from two points in a 2D Cartesian
  *  coordinate system you need to solve y = m * x + b for both
  *  points (x1, y1), (x2, y2). This gives you two equations with
  *  two unknowns (m and b) which can then be solved for m and b.
@@ -70,7 +70,7 @@
  */
 #define SBUS_BAUD ((F_CPU/16/100000)-1)
 
-// sbus macros
+// SBus macros
 #define SBUS_FLAGS ((CH_BUFFER_OCTETS*11)+1)
 #define SBUS_FLAG_FRAME_LOST 2
 #define SBUS_FLAG_FAILSAFE_ACTIVATED 3
@@ -79,7 +79,7 @@
  *  (1 start bit, 8 data bits, 1 bit even parity and 2 stop bits). This
  *  comes to a total of 120 us for each byte sent. Setting the timer to
  *  240 us should give the AVR adequate time to reset the timer while
- *  receiving a sbus packet: 16 bit - CPU clock * 240 us / prescaler value
+ *  receiving a SBus packet: 16 bit - CPU clock * 240 us / prescaler value
  */
 #define TIMER1_INIT_COUNT (0xffff-(F_CPU*0.00024/8))
 

@@ -66,7 +66,7 @@ int main(void) {
     }
 }
 
-/** Configures the board hardware and chip peripherals for the demo's functionality. */
+/** Configures the board hardware and chip peripherals for the demos functionality. */
 void SetupHardware(void) {
     /* Disable watchdog if enabled by bootloader/fuses */
     MCUSR &= ~(1 << WDRF);

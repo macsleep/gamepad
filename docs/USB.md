@@ -36,6 +36,6 @@ The Teensy presents itself as a Generic Desktop GamePad **H**uman **I**nterface 
   End Collection     
 ```
 
-The first eight bytes contain the first eight channels the receiver sends. The eleven bit sbus channel values are converted to USB friendly signed bytes of -127 to 127. The next eight channels get encoded into one byte as buttons that are either "on" or "off" (one bit equals one button).
+The first eight bytes contain the first eight channels the receiver sends. The eleven bit SBus channel values are converted to USB friendly signed bytes of -127 to 127. The next eight channels get encoded into one byte as buttons that are either "on" or "off" (one bit equals one button).
 
 Vendor and Product ID (0x03EB, 0x2043) belong to Atmel and should under no circumstances be used commercially. Please see the LUFA documentation for details.

@@ -22,7 +22,7 @@
 
 /** \file
  *
- * functions for reading the sbus packets via an inverter into the UART of the teensy
+ * functions for reading the SBus packets via an inverter into the UART of the teensy
  */
 
 #include "SBus.h"
@@ -38,10 +38,10 @@ static volatile uint16_t ch_buffer[CH_BUFFER_SIZE];
 void SBus_Init(void) {
     uint8_t i, ch_base, rx_base;
 
-    // int channel buffer
+    // initialize channel buffer
     for (i = 0; i < CH_BUFFER_SIZE; i++) ch_buffer[i] = ONE_HALF_POSITION;
 
-    // init rx buffer
+    // initialize RX buffer
     for (i = 0; i < CH_BUFFER_OCTETS; i++) {
         ch_base = i * 8;
         rx_base = i * 11 + 1;
@@ -65,7 +65,7 @@ void SBus_Init(void) {
     UCSR1B = (1 << RXEN1) | (1 << RXCIE1); // enable receiver, interrupt
 
     // Timer1
-    TCCR1A = 0; // no pwm
+    TCCR1A = 0; // no PWM
     TCCR1B = (1 << CS11); // prescaler 8
     TCNT1 = 0; // start value
     TIMSK1 |= (1 << TOIE1); // enable interrupt
@@ -109,7 +109,7 @@ ISR(USART1_RX_vect) {
 }
 
 /** Timer Interrupt
- *  The timer overflow interrupt will get triggered between sbus packets.
+ *  The timer overflow interrupt will get triggered between SBus packets.
  *  Because it looks for the gaps there is no need to check for length,
  *  header or trailer in the data.
  */
