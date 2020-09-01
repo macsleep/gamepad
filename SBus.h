@@ -50,7 +50,7 @@
 
 // default values
 #define ONE_FOURTH_POSITION (X1+((X2-X1)/4))
-#define ONE_THIRDS_POSITION (X1+((X2-X1)/3))
+#define ONE_THIRD_POSITION (X1+((X2-X1)/3))
 #define ONE_HALF_POSITION (X1+((X2-X1)/2))
 #define TWO_THIRDS_POSITION (X1+(((X2-X1)/3)*2))
 #define THREE_FOURTH_POSITION (X1+(((X2-X1)/4)*3))
