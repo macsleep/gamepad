@@ -141,14 +141,14 @@ bool CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_Device_t * const HIDI
 
     // button values
     GamepadReport->Buttons1 = 0;
-    if (SBus_Channel(8) > TWO_THIRD_POSITION) GamepadReport->Buttons1 |= (1 << 0);
-    if (SBus_Channel(9) > TWO_THIRD_POSITION) GamepadReport->Buttons1 |= (1 << 1);
-    if (SBus_Channel(10) > TWO_THIRD_POSITION) GamepadReport->Buttons1 |= (1 << 2);
-    if (SBus_Channel(11) > TWO_THIRD_POSITION) GamepadReport->Buttons1 |= (1 << 3);
-    if (SBus_Channel(12) > TWO_THIRD_POSITION) GamepadReport->Buttons1 |= (1 << 4);
-    if (SBus_Channel(13) > TWO_THIRD_POSITION) GamepadReport->Buttons1 |= (1 << 5);
-    if (SBus_Channel(14) > TWO_THIRD_POSITION) GamepadReport->Buttons1 |= (1 << 6);
-    if (SBus_Channel(15) > TWO_THIRD_POSITION) GamepadReport->Buttons1 |= (1 << 7); // RSSI
+    if (SBus_Channel(8) >= TWO_THIRDS_POSITION) GamepadReport->Buttons1 |= (1 << 0);
+    if (SBus_Channel(9) >= TWO_THIRDS_POSITION) GamepadReport->Buttons1 |= (1 << 1);
+    if (SBus_Channel(10) >= TWO_THIRDS_POSITION) GamepadReport->Buttons1 |= (1 << 2);
+    if (SBus_Channel(11) >= TWO_THIRDS_POSITION) GamepadReport->Buttons1 |= (1 << 3);
+    if (SBus_Channel(12) >= TWO_THIRDS_POSITION) GamepadReport->Buttons1 |= (1 << 4);
+    if (SBus_Channel(13) >= TWO_THIRDS_POSITION) GamepadReport->Buttons1 |= (1 << 5);
+    if (SBus_Channel(14) >= TWO_THIRDS_POSITION) GamepadReport->Buttons1 |= (1 << 6);
+    if (SBus_Channel(15) >= TWO_THIRDS_POSITION) GamepadReport->Buttons1 |= (1 << 7); // RSSI
 
     // set report size
     *ReportSize = sizeof (USB_GamepadReport_Data_t);

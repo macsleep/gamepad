@@ -38,25 +38,25 @@ static volatile uint16_t ch_buffer[CH_BUFFER_SIZE];
 void SBus_Init(void) {
     uint8_t i, ch_base, rx_base;
 
-    // init channel buffer
-    for (i = 0; i < CH_BUFFER_SIZE; i++) ch_buffer[i] = HALF_POSITION;
+    // int channel buffer
+    for (i = 0; i < CH_BUFFER_SIZE; i++) ch_buffer[i] = ONE_HALF_POSITION;
 
     // init rx buffer
     for (i = 0; i < CH_BUFFER_OCTETS; i++) {
         ch_base = i * 8;
         rx_base = i * 11 + 1;
 
-        rx_buffer[rx_base + 0] = (uint8_t) (ch_buffer[ch_base + 0] & 0x07ff);
-        rx_buffer[rx_base + 1] = (uint8_t) ((ch_buffer[ch_base + 0] & 0x07ff) >> 8 | (ch_buffer[ch_base + 1] & 0x07ff) << 3);
-        rx_buffer[rx_base + 2] = (uint8_t) ((ch_buffer[ch_base + 1] & 0x07ff) >> 5 | (ch_buffer[ch_base + 2] & 0x07ff) << 6);
-        rx_buffer[rx_base + 3] = (uint8_t) ((ch_buffer[ch_base + 2] & 0x07ff) >> 2);
-        rx_buffer[rx_base + 4] = (uint8_t) ((ch_buffer[ch_base + 2] & 0x07ff) >> 10 | (ch_buffer[ch_base + 3] & 0x07ff) << 1);
-        rx_buffer[rx_base + 5] = (uint8_t) ((ch_buffer[ch_base + 3] & 0x07ff) >> 7 | (ch_buffer[ch_base + 4] & 0x07ff) << 4);
-        rx_buffer[rx_base + 6] = (uint8_t) ((ch_buffer[ch_base + 4] & 0x07ff) >> 4 | (ch_buffer[ch_base + 5] & 0x07ff) << 7);
-        rx_buffer[rx_base + 7] = (uint8_t) ((ch_buffer[ch_base + 5] & 0x07ff) >> 1);
-        rx_buffer[rx_base + 8] = (uint8_t) ((ch_buffer[ch_base + 5] & 0x07ff) >> 9 | (ch_buffer[ch_base + 6] & 0x07ff) << 2);
-        rx_buffer[rx_base + 9] = (uint8_t) ((ch_buffer[ch_base + 6] & 0x07ff) >> 6 | (ch_buffer[ch_base + 7] & 0x07ff) << 5);
-        rx_buffer[rx_base + 10] = (uint8_t) ((ch_buffer[ch_base + 7] & 0x07ff) >> 3);
+        rx_buffer[rx_base + 0] = (uint8_t) ch_buffer[ch_base + 0];
+        rx_buffer[rx_base + 1] = (uint8_t) (ch_buffer[ch_base + 0] >> 8 | ch_buffer[ch_base + 1] << 3);
+        rx_buffer[rx_base + 2] = (uint8_t) (ch_buffer[ch_base + 1] >> 5 | ch_buffer[ch_base + 2] << 6);
+        rx_buffer[rx_base + 3] = (uint8_t) (ch_buffer[ch_base + 2] >> 2);
+        rx_buffer[rx_base + 4] = (uint8_t) (ch_buffer[ch_base + 2] >> 10 | ch_buffer[ch_base + 3] << 1);
+        rx_buffer[rx_base + 5] = (uint8_t) (ch_buffer[ch_base + 3] >> 7 | ch_buffer[ch_base + 4] << 4);
+        rx_buffer[rx_base + 6] = (uint8_t) (ch_buffer[ch_base + 4] >> 4 | ch_buffer[ch_base + 5] << 7);
+        rx_buffer[rx_base + 7] = (uint8_t) (ch_buffer[ch_base + 5] >> 1);
+        rx_buffer[rx_base + 8] = (uint8_t) (ch_buffer[ch_base + 5] >> 9 | ch_buffer[ch_base + 6] << 2);
+        rx_buffer[rx_base + 9] = (uint8_t) (ch_buffer[ch_base + 6] >> 6 | ch_buffer[ch_base + 7] << 5);
+        rx_buffer[rx_base + 10] = (uint8_t) (ch_buffer[ch_base + 7] >> 3);
     }
 
     // UART
@@ -73,7 +73,7 @@ void SBus_Init(void) {
 
 /** Channel Values */
 uint16_t SBus_Channel(uint8_t num) {
-    return (num < CH_BUFFER_SIZE) ? ch_buffer[num] : HALF_POSITION;
+    return (num < CH_BUFFER_SIZE) ? ch_buffer[num] : ONE_HALF_POSITION;
 }
 
 /** Normalize SBus values */

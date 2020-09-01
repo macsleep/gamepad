@@ -33,14 +33,14 @@
 /** To get a linear equation from two points in a 2d Cartesian
  *  coordinate system you need to solve y = m * x + b for both
  *  points (x1, y1), (x2, y2). This gives you two equations with
- *  two unkowns (m and b) which can then be solved for m and b.
+ *  two unknowns (m and b) which can then be solved for m and b.
  */
 
-// range for sbus values (min:0, max:2047)
+// range for SBus values (min:0, max:2047)
 #define X1 173.0
 #define X2 1811.0
 
-// range for usb values
+// range for USB values
 #define Y1 -127.0
 #define Y2 127.0
 
@@ -50,9 +50,9 @@
 
 // default values
 #define ONE_FOURTH_POSITION (X1+((X2-X1)/4))
-#define ONE_THIRD_POSITION (X1+((X2-X1)/3))
-#define HALF_POSITION (X1+((X2-X1)/2))
-#define TWO_THIRD_POSITION (X1+(((X2-X1)/3)*2))
+#define ONE_THIRDS_POSITION (X1+((X2-X1)/3))
+#define ONE_HALF_POSITION (X1+((X2-X1)/2))
+#define TWO_THIRDS_POSITION (X1+(((X2-X1)/3)*2))
 #define THREE_FOURTH_POSITION (X1+(((X2-X1)/4)*3))
 
 // channel buffer size
