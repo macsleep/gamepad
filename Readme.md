@@ -34,4 +34,4 @@ If you don't want to build the software yourself just download the Gamepad.hex.s
 ## Usage
 Create a new model for the S.BUS gamepad on your transmitter. Make sure that you enable at least 4 channels (e.g. ailerons, elevator, throttle and rudder) for the receiver. Bind the receiver like you normally would. Use software like [HTML5 Gamepad Tester](http://html5gamepad.com/) to test the S.BUS gamepad. Once you have confirmed operation start your favorite simulator and enjoy.
 
-Date: 2018-09-21
+Date: 2023-11-17
