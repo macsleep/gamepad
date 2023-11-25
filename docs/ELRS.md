@@ -2,7 +2,7 @@
 
 [ExpressLRS](https://www.expresslrs.org/) added S.BUS support back into their receiver firmware in version 3.3 (and newer). Using S.BUS it is possible to hook up an ELRS receiver to the S.BUS gamepad. The amazing thing is not only did the ELRS developers add S.BUS to their receiver firmware but they also added Inverted S.BUS. Inverted S.BUS makes the transistor inverter redundant (no more extra hardware). Shout-out to [Roberto](https://github.com/RobertoD91) who let me know about this.
 
-**A word of caution:** Hooking up an ELRS receiver directly to the Teensy mixes a 5 Volt system (Teensy) with a 3.3 Volt system (ELRS receiver). Be carefull **not** to connect any 5 Volt outputs to a 3.3 Volt input (e.g. do not connect the Teensy UART TX to the ELRS receivers RX). The ESP32 controllers used in most ELRS receivers are **not** 5 Volt tolerant. Connecting the ELRS receivers TX output to the Teensy RX input should be ok though. The Teensy needs a signal of at least 0.6 * VCC = 3V to recognize a high value.
+**A word of caution:** Hooking up an ELRS receiver directly to the Teensy mixes a 5 Volt system (Teensy) with a 3.3 Volt system (ELRS receiver). Be carefull **not** to connect any 5 Volt outputs to a 3.3 Volt input (e.g. do not connect the Teensy UART TX to the ELRS receivers RX). The ESP controllers used in most ELRS receivers are **not** 5 Volt tolerant. Connecting the ELRS receivers TX output to the Teensy RX input should be ok though. The Teensy needs a signal of at least 0.6 * VCC = 3V to recognize a high value.
 
 ![Parts](images/ELRS_Parts.jpeg)
 
