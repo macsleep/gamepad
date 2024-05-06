@@ -41,7 +41,7 @@
 #define X2 1811.0
 
 // range for USB values
-#define Y1 -127.0
+#define Y1 -128.0
 #define Y2 127.0
 
 // values for normalize function
