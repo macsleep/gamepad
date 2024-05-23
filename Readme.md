@@ -31,7 +31,16 @@ Ever wanted to use a FrSky Taranis wirelessly with PC simulators like [FPVFreeri
  
 If you don't want to build the software yourself just download the Gamepad.hex.save file and load it onto the Teensy using: `teensy_loader_cli --mcu=atmega32u4 -w -v Gamepad.hex.save`
 
+## Alternative Build
+
+Here are a few tips for adjusting the build to an [Arduino Micro](https://store.arduino.cc/products/arduino-micro) (original or clone). You will need [avrdude](https://www.nongnu.org/avrdude/) to program the Micro.
+
+* edit the Makefile and change the BOARD variable from TEENSY to MICRO
+* execute `make avrdude AVRDUDE_PROGRAMMER=avr109 AVRDUDE_PORT=<serial port>` to download the hex file to the attached Micro
+
+Replace `<serial port>` with the device name the Micro is connected to on your computer after resetting. Depending on the bootloader installed on your Micro you might have to change AVRDUDE_PROGRAMMER value from avr109 to arduino.
+
 ## Usage
 Create a new model for the S.BUS gamepad on your transmitter. Make sure that you enable at least 4 channels (e.g. ailerons, elevator, throttle and rudder) for the receiver. Bind the receiver like you normally would. Use software like [HTML5 Gamepad Tester](http://html5gamepad.com/) to test the S.BUS gamepad. Once you have confirmed operation start your favorite simulator and enjoy.
 
-Date: 2023-11-17
+Date: 2024-05-20
