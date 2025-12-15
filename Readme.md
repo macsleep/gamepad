@@ -19,7 +19,7 @@ Ever wanted to use a FrSky Taranis wirelessly with PC simulators like [FPVFreeri
 * HalfKey Loader teensy_loader_cli
 	* available here: [PJRC](https://www.pjrc.com/), [teensy_loader_cli](https://www.pjrc.com/teensy/loader_cli.html)
 * Dean Camera's excellent **L**ightweight **U**SB **F**ramework for **A**VRs (LUFA)
-	* available here: [Four Walled Cubicle](http://www.fourwalledcubicle.com/), [LUFA](http://www.fourwalledcubicle.com/LUFA.php)
+	* available here: [Four Walled Cubicle](http://www.fourwalledcubicle.com/), [LUFA](https://github.com/abcminiuser/lufa)
 
 ## Build
 * clone or download the firmware
